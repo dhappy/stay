@@ -501,9 +501,10 @@
   <g
      inkscape:groupmode="layer"
      id="layer13"
-     inkscape:label="floor"
+     inkscape:label="cabin"
      style="display:inline"
-     transform="translate(-0.97705444,2.6857412)">
+     transform="translate(-0.97705444,2.6857412)"
+     auto-hide="false">
     <g
        inkscape:groupmode="layer"
        id="layer12"
@@ -599,6 +600,11 @@
        id="layer38"
        inkscape:label="2"
        style="display:none">
+      <g
+         inkscape:groupmode="layer"
+         id="layer234"
+         inkscape:label="structure"
+         auto-hide="false">
       <g
          inkscape:groupmode="layer"
          id="layer16"
@@ -826,6 +832,21 @@
       </g>
       <g
          inkscape:groupmode="layer"
+         id="layer26"
+         inkscape:label="fireplace"
+         style="display:inline">
+        <use
+           style="display:inline"
+           x="0"
+           y="0"
+           xlink:href="#polygon4904-1"
+           id="use7040"
+           width="98"
+           height="54" />
+      </g>
+      </g>
+      <g
+         inkscape:groupmode="layer"
          id="layer7"
          inkscape:label="counters"
          style="display:inline">
@@ -841,20 +862,6 @@
            width="9"
            height="3"
            id="rect4912" />
-      </g>
-      <g
-         inkscape:groupmode="layer"
-         id="layer26"
-         inkscape:label="fireplace"
-         style="display:inline">
-        <use
-           style="display:inline"
-           x="0"
-           y="0"
-           xlink:href="#polygon4904-1"
-           id="use7040"
-           width="98"
-           height="54" />
       </g>
       <g
          inkscape:groupmode="layer"

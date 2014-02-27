@@ -121,7 +121,7 @@ nav span {
 }
 
 label.layer-visible {
-    background-image: url('.../image/icon/eye/xed/');
+    background-image: url('http://dhappy.org/.../image/icon/eye/xed/');
     background-repeat: no-repeat;
     background-position: center;
     min-width: 1em;
@@ -134,7 +134,7 @@ input.layer-visible, input.children-visible {
 }
 
 input:checked + label.layer-visible {
-    background-image: url('.../image/icon/eye/');
+    background-image: url('http://dhappy.org/.../image/icon/eye/');
 }
 
 label.children-visible:before {

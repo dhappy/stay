@@ -1,3 +1,8 @@
+SVGElement.prototype.getTransformToElement =
+    SVGElement.prototype.getTransformToElement || function(elem) {
+	return elem.getScreenCTM().inverse().multiply(this.getScreenCTM());
+    }
+
 $( function() {
     var ns = {
         html: 'http://www.w3.org/1999/xhtml'

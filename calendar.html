@@ -1,8 +1,8 @@
 <html lang="en" >
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Angular Material style sheet -->
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+    <link rel="stylesheet" href="node_modules/angular-material/angular-material.min.css">
+    <link rel="stylesheet" href="node_modules/fullcalendar/dist/fullcalendar.css">
   </head>
   <body ng-app="CalendarApp" ng-controller="MainCtrl" ng-cloak>
     <div ng-repeat="post in posts | orderBy: '-upvotes'">
@@ -14,12 +14,19 @@
       <button type="submit">Post</button>
     </form>
 
-    <script src="node_modules/angular/angular.min.js"></script>
+    <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>
+    
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/moment/min/moment.min.js"></script>
+    <script src="node_modules/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="node_modules/angular/angular.js"></script>
     <script src="node_modules/angular-animate/angular-animate.min.js"></script>
     <script src="node_modules/angular-aria/angular-aria.min.js"></script>
     <script src="node_modules/angular-messages/angular-messages.min.js"></script>
     <script src="node_modules/angular-material/angular-material.min.js"></script>
-    
+    <script src="node_modules/angular-ui-calendar/src/calendar.js"></script>
+    <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+
     <script src='app.js'></script>
   </body>
 </html>

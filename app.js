@@ -2,15 +2,6 @@ angular.module('CalendarApp', ['ngMaterial', 'ui.calendar', 'ui.bootstrap'])
     .controller('MainCtrl', [
 	'$scope',
 	function($scope) {
-	    $scope.test = 'Hello world!'
-
-	    $scope.posts = [
-		'post 1',
-		'post 2',
-		'post 3',
-		'post 4',
-		'post 5'
-	    ]
 	    $scope.posts = [
 		{title: 'post 1', upvotes: 5},
 		{title: 'post 2', upvotes: 2},
@@ -21,7 +12,7 @@ angular.module('CalendarApp', ['ngMaterial', 'ui.calendar', 'ui.bootstrap'])
 
 	    $scope.eventSources = []
 
-	    $scope.addPost = function(){
+	    $scope.addPost = function() {
 		$scope.posts.push({title: $scope.title, upvotes: 0});
 		$scope.title = '';
 	    };

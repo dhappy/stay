@@ -2,8 +2,13 @@ angular.module('CalendarApp', ['ngMaterial', 'ui.calendar', 'ui.bootstrap'])
     .controller('MainCtrl', [
 	'$scope',
 	function($scope) {
-	    $scope.event = {
-		start: new Date()
+	    $scope.start = {
+		date: new Date(),
+		time: (function() {
+		    var current = new Date()
+		    current.setMilliseconds(0)
+		    return current
+		})()
 	    }
 	    $scope.events = []
 	    

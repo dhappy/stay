@@ -7,9 +7,23 @@
   </head>
   <body ng-app="CalendarApp" ng-controller="MainCtrl" ng-cloak>
     <form ng-submit="addEvent()">
-      <input type="text" ng-model="title"></input>
-      <md-datepicker ng-model="event.start"></md-datepicker>
-      <md-datepicker ng-model="event.end"></md-datepicker>
+      <md-input-container>
+	<label>Title</label>
+	<input type="text" ng-model="title"/>
+      </md-input-container>
+      <md-input-container>
+	<label>Start Date</label>
+	<md-datepicker ng-model="start.date"></md-datepicker>
+      </md-input-container>
+      <md-input-container>
+	<label>Start Time</label>
+	<input type="time" ng-model="start.time"
+	       placeholder="HH:mm:ss" min="08:00:00" max="17:00:00" required />
+      </md-input-container>
+      <md-input-container>
+	<label>Event End</label>
+	<md-datepicker ng-model="end.date"></md-datepicker>
+      </md-input-container>
       <button type="submit">New Event</button>
     </form>
 

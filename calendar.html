@@ -1,20 +1,19 @@
 <html lang="en" >
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="node_modules/angular-material/angular-material.min.css">
-    <link rel="stylesheet" href="node_modules/fullcalendar/dist/fullcalendar.css">
+    <title>Hostel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="node_modules/angular-material/angular-material.min.css"/>
+    <link rel="stylesheet" href="node_modules/fullcalendar/dist/fullcalendar.css"/>
   </head>
   <body ng-app="CalendarApp" ng-controller="MainCtrl" ng-cloak>
-    <div ng-repeat="post in posts | orderBy: '-upvotes'">
-      {{post.title}} - upvotes: {{post.upvotes}}
-    </div>
-    <form ng-submit="addPost()">
+    <form ng-submit="addEvent()">
       <input type="text" ng-model="title"></input>
-      <md-datepicker ng-model="ctrl.myDate" md-placeholder="Enter date"></md-datepicker>
-      <button type="submit">Post</button>
+      <md-datepicker ng-model="event.start"></md-datepicker>
+      <md-datepicker ng-model="event.end"></md-datepicker>
+      <button type="submit">New Event</button>
     </form>
 
-    <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>
+    <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="events"></div>
     
     <script src="node_modules/jquery/dist/jquery.js"></script>
     <script src="node_modules/moment/min/moment.min.js"></script>

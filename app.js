@@ -1,24 +1,86 @@
-angular.module('CalendarApp', ['ngMaterial', 'ui.calendar', 'ui.bootstrap'])
+angular.module('CalendarApp', ['ngMaterial', 'ui.calendar', 'ui.bootstrap', 'ui.router'])
+    .config([
+	'$stateProvider',
+	'$urlRouterProvider',
+	function($stateProvider, $urlRouterProvider) {
+	    $stateProvider
+	        .state('home', {
+		    url: '/home',
+		    templateUrl: '/home.html',
+		    controller: 'MainCtrl'
+		})
+
+	    $urlRouterProvider.otherwise('home')
+	}])
+    .factory('events', [function() {
+	var ret = {
+	    events: []
+	}
+	return ret
+    }])
     .controller('MainCtrl', [
 	'$scope',
-	function($scope) {
+	'$timeout',
+	'events',
+	function($scope, $timeout, events) {
+	    var truncatedTime = new Date()
+	    truncatedTime.setMilliseconds(0)
+	    truncatedTime.setSeconds(0)
+
 	    $scope.start = {
 		date: new Date(),
-		time: (function() {
-		    var current = new Date()
-		    current.setMilliseconds(0)
-		    return current
-		})()
+		time: truncatedTime
 	    }
-	    $scope.events = []
+	    $scope.end = {
+		date: (function() {
+		    var current = new Date()
+		    current.setDate(current.getDate() + 1)
+		    return current
+		})(),
+		time: truncatedTime
+	    }
+	    $scope.events = events.events
+	    $scope.eventSources = [$scope.events]
+
+	    var getDatetime = function(base) {
+		var datetime = base.date
+		if(base.time) {
+		    datetime.setHours(base.time.getHours())
+		    datetime.setMinutes(base.time.getMinutes())
+		}
+		return datetime
+	    }
 	    
 	    $scope.addEvent = function() {
-		$scope.events.push([{
+		if($scope.start.time) {
+		}
+		$scope.events.push({
 		    title: $scope.title,
-		    start: $scope.event.start,
-		    end: $scope.event.end
-		}])
-		console.log($scope.events)
-		$scope.title = '';
-	    };
+		    start: getDatetime($scope.start),
+		    end: getDatetime($scope.end)
+		})
+		$scope.title = ''
+	    }
+
+	    $scope.eventRender = function(event, element, view) {
+		console.log(event)
+		element.attr({
+		    tooltip: event.title,
+		    'tooltip-append-to-body': true
+		})
+		$compile(element)($scope)
+	    }
+
+	    // fullcalendar not rendering on load
+	    setTimeout(function() {
+		$('#calendar').fullCalendar('render')
+	    }, 100)
+	    
+	    $scope.uiConfig = {
+		calendar: {
+		    editable: true,
+		    fixedWeekCount: false
+		},
+		eventRender: $scope.eventRender
+	    }
 	}])

@@ -71,16 +71,21 @@ angular.module('CalendarApp', ['ngMaterial', 'ui.calendar', 'ui.bootstrap', 'ui.
 		$compile(element)($scope)
 	    }
 
+	    $scope.uiConfig = {
+		calendar: {
+		    defaultView: 'agenda',
+		    editable: true,
+		    fixedWeekCount: false,
+		    duration: { days: 4 },
+		    timeFormat: 'H(:mm)'
+
+		    
+		},
+		eventRender: $scope.eventRender
+	    }
+
 	    // fullcalendar not rendering on load
 	    setTimeout(function() {
 		$('#calendar').fullCalendar('render')
 	    }, 100)
-	    
-	    $scope.uiConfig = {
-		calendar: {
-		    editable: true,
-		    fixedWeekCount: false
-		},
-		eventRender: $scope.eventRender
-	    }
 	}])

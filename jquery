@@ -10,6 +10,13 @@ $( function() {
         } )
     }
 
+    function genBBox( viewBox ) {
+	var vals = parseViewBox( viewBox )
+	return {
+	    x: vals[0], y: vals[1], width: vals[2], height: vals[3]
+	}
+    }
+
     $.fx.step['viewBox'] = function( fx ) {
         var attr = fx.elem.attributes.getNamedItem( 'viewBox' )
         if( ! fx.set ) {
@@ -25,6 +32,47 @@ $( function() {
         ;(attr ? attr.nodeValue = box : fx.elem.setAttribute( 'viewBox', box ) )
     }
 
+    function setActiveLayer( $layer ) {
+	var elem = $layer.get(0)
+        var svg = elem.ownerDocument.documentElement
+        var bbox = elem.getBBox()
+
+        $(this).parents()
+            .children( '.controls' )
+            .children( 'input.layer-visible' )
+            .not( '[auto-hide="false"]' )
+            .prop( 'checked', true )
+            .change() // not fired
+                
+	elem.getTransformToElement = elem.getTransformToElement || function( elem ) {
+	    return elem.getScreenCTM().inverse().multiply( this.getScreenCTM() )
+	}
+		
+        var tfm2elm = elem.getTransformToElement( svg )
+	
+        var pad = 2
+	
+        var origin = svg.createSVGPoint()
+        origin.x = bbox.x - pad
+        origin.y = bbox.y - pad
+	
+        var dest = svg.createSVGPoint()
+        dest.x = origin.x + bbox.width + 2 * pad
+        dest.y = origin.y + bbox.height + 2 * pad
+	
+        origin = origin.matrixTransform(tfm2elm)
+        dest = dest.matrixTransform(tfm2elm)
+	
+        dest.x -= origin.x
+        dest.y -= origin.y
+	
+        var newBox = [origin.x, origin.y, dest.x, dest.y].join( ' ' )
+	
+        $(svg).animate( {
+            viewBox: newBox
+        } )
+    }
+    
     function layersList( $root ) {
         var $children = $root.children( '[inkscape\\:groupmode="layer"]' )
         var $list = $('<ul/>')
@@ -61,6 +109,7 @@ $( function() {
                         $layer.toggle( visible )
                     } )
             )
+
             if( $layer.css( 'display' ) != 'none' ) {
                 $visibilityCheck.attr( { checked: true } )
             }
@@ -93,47 +142,17 @@ $( function() {
                 .text( $layer.attr( 'inkscape:label' ) )
 
             $text.click( function() {
-                var elem = $layer.get(0)
-                var svg = elem.ownerDocument.documentElement
-                var bbox = elem.getBBox()
-
-
-                $(this).parents()
-                    .children( '.controls' )
-                    .children( 'input.layer-visible' )
-                    .not( '[auto-hide="false"]' )
-                    .prop( 'checked', true )
-                    .change() // not fired
-                
-		elem.getTransformToElement = elem.getTransformToElement || function( elem ) {
-		    return elem.getScreenCTM().inverse().multiply( this.getScreenCTM() )
-		}
-		
-                var tfm2elm = elem.getTransformToElement( svg )
-
-                var pad = 2
-
-                var origin = svg.createSVGPoint()
-                origin.x = bbox.x - pad
-                origin.y = bbox.y - pad
-
-                var dest = svg.createSVGPoint()
-                dest.x = origin.x + bbox.width + 2 * pad
-                dest.y = origin.y + bbox.height + 2 * pad
-
-                origin = origin.matrixTransform(tfm2elm)
-                dest = dest.matrixTransform(tfm2elm)
-
-                dest.x -= origin.x
-                dest.y -= origin.y
-
-                var newBox = [origin.x, origin.y, dest.x, dest.y].join( ' ' )
-
-                $(svg).animate( {
-                    viewBox: newBox
-                } )
+		setActiveLayer( $layer )
             } )
 
+	    $layer.click( function( event ) {
+		var $target = $(event.currentTarget)
+		if( $target.parent().eq( $(this) ) ) {
+		    setActiveLayer( $target )
+		    event.stopPropagation()
+		}
+	    } )
+	    
             var $item =
                 $('<li/>')
                 .append(

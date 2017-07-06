@@ -47,12 +47,12 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:zoom="0.11260534"
-     inkscape:cx="1565.9745"
-     inkscape:cy="2733.8013"
+     inkscape:cx="1839.64"
+     inkscape:cy="1076.5953"
      inkscape:window-x="0"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg3415" />
+     inkscape:current-layer="layer56" />
   <title
      id="title3417">Riddle Creek</title>
   <defs
@@ -147,7 +147,8 @@
        inkscape:label="Cabin"
        style="display:inline"
        transform="translate(-0.97705444,2.6857412)"
-       auto-hide="false">
+       auto-hide="false"
+       tip:bbox="1657 -4492 699 524">
       <g
          inkscape:groupmode="layer"
          id="layer48"
@@ -789,14 +790,14 @@
             <polygon
                transform="matrix(7.8493836,0,0,7.8493836,1773.9837,-4430.8504)"
                style="display:inline;fill:#8a3e09;fill-opacity:0.93562233;stroke:#000009;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-               points="9,21 6,21 6,1 15,1 15,4 9,4 "
+               points="6,1 15,1 15,4 9,4 9,21 6,21 "
                id="polygon116" />
           </g>
           <g
              inkscape:groupmode="layer"
              id="layer49"
              inkscape:label="event"
-             style="display:none">
+             style="display:inline">
             <g
                inkscape:groupmode="layer"
                id="layer31"
@@ -1663,7 +1664,7 @@
           <polygon
              transform="translate(-4.3e-5,-0.139837)"
              style="display:inline;fill:#ffabee"
-             points="4,-6 4,1 1,1 1,-9 13,-9 13,-6 "
+             points="4,1 1,1 1,-9 13,-9 13,-6 4,-6 "
              id="polygon4908" />
           <rect
              style="display:inline;fill:#ffabee"
@@ -2360,20 +2361,6 @@
         <g
            id="g5444" />
       </g>
-      <rect
-         style="opacity:0;fill:#880787;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect5096"
-         width="302.37042"
-         height="312.70682"
-         x="1372.6443"
-         y="-2531.9009" />
-      <rect
-         style="opacity:0;fill:#289039;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:27.47284317;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect5400"
-         width="275.0722"
-         height="199.19022"
-         x="1459.9086"
-         y="-2399.1091" />
     </g>
     <g
        inkscape:groupmode="layer"

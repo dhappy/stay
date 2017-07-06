@@ -73,13 +73,29 @@ angular.module('CalendarApp', ['ngMaterial', 'ui.calendar', 'ui.bootstrap', 'ui.
 
 	    $scope.uiConfig = {
 		calendar: {
+		    header: {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'month,agendaWeek,agendaDay'
+		    },
 		    defaultView: 'agenda',
 		    editable: true,
 		    fixedWeekCount: false,
 		    duration: { days: 4 },
-		    timeFormat: 'H(:mm)'
-
-		    
+		    timeFormat: 'H(:mm)',
+		    selectable: true,
+		    select: function(start, end) {
+			console.log('t', $scope.start.date, start)
+			$scope.start.date = start
+			//$scope.start.time = start
+			$scope.end.time = $scope.end.date =
+			    event.end.toDate()
+		    },
+		    selectAllow: function(event) {
+			$scope.start.time = $scope.start.date =
+			    event.start.toDate()
+			console.log(event.start.toDate())
+		    }
 		},
 		eventRender: $scope.eventRender
 	    }

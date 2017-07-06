@@ -32,11 +32,20 @@ $( function() {
         ;(attr ? attr.nodeValue = box : fx.elem.setAttribute( 'viewBox', box ) )
     }
 
+    var $activeLayer
+    
     function setActiveLayer( $layer ) {
+	$activeLayer = $layer
+	
 	var elem = $layer.get(0)
         var svg = elem.ownerDocument.documentElement
         var bbox = elem.getBBox()
 
+	if( setBBox = $layer.attr( 'tip:bbox' ) ) {
+	    bbox = genBBox( setBBox )
+	}
+	//console.log(bbox)
+	
         $(this).parents()
             .children( '.controls' )
             .children( 'input.layer-visible' )
@@ -147,12 +156,15 @@ $( function() {
 
 	    $layer.click( function( event ) {
 		var $target = $(event.currentTarget)
-		if( $target.parent().eq( $(this) ) ) {
+		console.log( event, $target, this, $activeLayer )
+		if( $activeLayer.parent().eq( $(this) ) ) {
 		    setActiveLayer( $target )
 		    event.stopPropagation()
+		} else if( $target.eq( $(this) ) ) {
+		    setActiveLayer( $(this).parent() )
 		}
 	    } )
-	    
+
             var $item =
                 $('<li/>')
                 .append(

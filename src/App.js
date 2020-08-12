@@ -103,13 +103,18 @@ export default () => {
             if(current === newView) {
               newView = origBBox
             }
-            console.log(current, newView, origBBox)
             TweenMax.to(
               svg.current, 1, { attr: { viewBox: newView }, ease: Power3.easeInOut }
             )
           } catch(e) {
             console.error(e)
           }
+        }
+      }
+
+      if(['parent'].includes(attrs.className)) {
+        attrs.onDoubleClick = () => {
+          console.info('DBL')
         }
       }
 

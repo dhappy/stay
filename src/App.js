@@ -1,12 +1,27 @@
 import React, { useState, useEffect, createRef } from 'react'
 import { TweenMax, Power3 } from 'gsap/all'
 import './App.css'
-import Property from './property.svg'
 
 export default () => {
+  const [files, setFiles] = useState(['property.svg'])
   const [doc, setDoc] = useState()
   const [origBBox, setOrigBBox] = useState()
+  const [SVG, setSVG] = useState()
+  const [keys, setKeys] = useState([])
+  const [elems, setElems] = useState({})
   const svg = createRef()
+
+  const camelCase = (str, sep = '-') => (
+    str.split(sep)
+    .map((part, i) => {
+      if(i === 0) {
+        return part
+      } else {
+        return part[0].toUpperCase() + part.slice(1)
+      }
+    })
+    .join('')
+  )
 
   const cleanAttributes = (attributes) => {
     const attrs = {}
@@ -18,17 +33,7 @@ export default () => {
       const style = {}
       for(let elem of attrs.style.split(';')) {
         let [prop, val] = elem.split(':')
-        prop = (
-          prop.split('-')
-          .map((part, i) => {
-            if(i === 0) {
-              return part
-            } else {
-              return part[0].toUpperCase() + part.slice(1)
-            }
-          })
-          .join('')
-        )
+        prop = camelCase(prop, '-')
         style[prop] = val
       }
       attrs.style = style
@@ -38,15 +43,86 @@ export default () => {
       attrs.className = attrs.class
       delete attrs.class
     }
-    if(attrs['xml:space']) {
-      attrs.xmlSpace = attrs['xml:space']
-      delete attrs['xml:space']
+    for(let attr of ['xml:space', 'xlink:href', 'xmlns:xlink']) {
+      if(attrs[attr]) {
+        attrs[camelCase(attr, ':')] = attrs[attr]
+        delete attrs[attr]
+      }
     }
 
     return attrs
   }
 
-  const buildTree = (root, key = 0) => {
+  const zoomedBox = (elem) => {
+    const bbox = elem.getBBox()
+    const tfm2elm = (
+      svg.current.getScreenCTM().inverse().multiply(elem.getScreenCTM())
+    )
+    const pad = 2
+    let origin = svg.current.createSVGPoint()
+    origin.x = bbox.x - pad
+    origin.y = bbox.y - pad
+    let dest = svg.current.createSVGPoint()
+    dest.x = origin.x + bbox.width + 2 * pad
+    dest.y = origin.y + bbox.height + 2 * pad
+    origin = origin.matrixTransform(tfm2elm)
+    dest = dest.matrixTransform(tfm2elm)
+    dest.x -= origin.x
+    dest.y -= origin.y
+    return [origin.x, origin.y, dest.x, dest.y].join(' ')
+  }
+
+  const zoomTo = (elem) => {
+    let newView = zoomedBox(elem)
+    if(newView === svg.current.attributes.viewBox.nodeValue) {
+      console.info(newView, origBBox)
+      newView = origBBox
+    }
+    TweenMax.to(
+      svg.current, 1, { attr: { viewBox: newView }, ease: Power3.easeInOut }
+    )
+  }
+
+  const setKeyTo = (to) => {
+    to = to.replace(/^#/, '')
+
+    console.info('SK', keys)
+
+    for(let key of keys) {
+      const anchors = (
+        [...key.current.childNodes]
+        .filter(c => c.attributes && c.attributes['xlink:href'])
+      )
+      const links = (
+        anchors
+        .map(c => c.attributes['xlink:href'].nodeValue.replace(/^#/, ''))
+      )
+
+      console.info('SK', links)
+
+      if(links.includes(to)) {
+        for(let anchor of anchors) {
+          if(!anchor.classList) continue
+
+          const id = anchor.attributes['xlink:href'].nodeValue.replace(/^#/, '')
+          const elem = elems[id].current
+          const visible = id === to
+
+          if(visible) {
+            anchor.classList.add('active')
+          } else {
+            anchor.classList.remove('active')
+          }
+
+          TweenMax.to(
+            elem, 0.5, { opacity: visible ? 1 : 0, ease: Power3.easeInOut }
+          )
+        }
+      }
+    }
+  }
+
+  const buildTree = (root, elems = {}, key = { val: 0 }) => {
     if(root.nodeType !== Node.ELEMENT_NODE) {
       console.error('Root Type', root.nodeType)
     } else {
@@ -56,10 +132,10 @@ export default () => {
           if([...child.childNodes].find(
             sub => sub.nodeType !== Node.TEXT_NODE
           )) {
-            children.push(buildTree(child, ++key))
+            children.push(buildTree(child, elems, key))
           } else {
             const attrs = cleanAttributes(child.attributes)
-            attrs.key = ++key
+            attrs.key = ++key.val
 
             const text = [...child.childNodes].map(c => c.data).join()
             children.push(React.createElement(
@@ -71,51 +147,47 @@ export default () => {
         }
       }
       const attrs = cleanAttributes(root.attributes)
-      attrs.key = ++key
+      attrs.key = ++key.val
 
-      if(['parent', 'space'].includes(attrs.className)) {
-        const ref = createRef()
-        attrs.ref = ref
-        attrs.onClick = () => {
-          const current = svg.current.attributes.viewBox.nodeValue
-          if(!origBBox) {
-            setOrigBBox(current)
-          }
-          const bbox = ref.current.getBBox()
+      const ref = createRef()
+      attrs.ref = ref
 
-          try {
-            
-            const tfm2elm = (
-              svg.current.getScreenCTM().inverse().multiply(ref.current.getScreenCTM())
-            )
-            const pad = 2
-            let origin = svg.current.createSVGPoint()
-            origin.x = bbox.x - pad
-            origin.y = bbox.y - pad
-            let dest = svg.current.createSVGPoint()
-            dest.x = origin.x + bbox.width + 2 * pad
-            dest.y = origin.y + bbox.height + 2 * pad
-            origin = origin.matrixTransform(tfm2elm)
-            dest = dest.matrixTransform(tfm2elm)
-            dest.x -= origin.x
-            dest.y -= origin.y
-            let newView = [origin.x, origin.y, dest.x, dest.y].join(' ')
-            if(current === newView) {
-              newView = origBBox
-            }
-            TweenMax.to(
-              svg.current, 1, { attr: { viewBox: newView }, ease: Power3.easeInOut }
-            )
-          } catch(e) {
-            console.error(e)
-          }
-        }
+      if(attrs.id) {
+        elems[attrs.id] = attrs.ref
+      }
+
+      if(['space'].includes(attrs.className)) {
+        attrs.onClick = () => zoomTo(ref.current)
       }
 
       if(['parent'].includes(attrs.className)) {
-        attrs.onDoubleClick = () => {
-          console.info('DBL')
+        attrs.onClick = () => {
+          const newView = zoomedBox(ref.current)
+          TweenMax.to(
+            svg.current, 1, { attr: { viewBox: newView }, opacity: 0, ease: Power3.easeInOut, onComplete: () => setFiles(f => [attrs.xlinkHref, ...f])}
+          )
         }
+      }
+
+      if(attrs.style && attrs.style.display === 'none') {
+        attrs.style.opacity = 0
+        attrs.style.display = 'inline'
+      }
+
+      if(['key'].includes(attrs.className)) {
+        attrs.onClick = (evt) => {
+          let clicked = evt.target
+          while(clicked.parentNode !== attrs.ref.current) {
+            clicked = clicked.parentNode
+          }
+          if([...clicked.classList].includes('active')) {
+            // toggle spaces visibility
+          } else {
+            setKeyTo(clicked.attributes['xlink:href'].nodeValue)
+          }
+        }
+        console.info('Adding', attrs.ref)
+        setKeys(ks => [...ks, attrs.ref])
       }
 
       if(root.nodeName === 'svg') {
@@ -128,22 +200,46 @@ export default () => {
     }
   }
 
-  const loadDoc = async () => {
-    const res = await fetch(Property)
+  const loadDoc = async (filename) => {
+    const res = await fetch(filename)
     const doc = await res.text()
     setDoc(doc)
   }
 
-  useEffect(() => { loadDoc() }, [])
-
-  let SVG
-  if(doc) {
-    const dom = (new DOMParser()).parseFromString(doc, 'text/xml')
-    SVG = buildTree(dom.documentElement)
+  const back = () => {
+    setFiles(f => f.slice(1))
   }
+
+  useEffect(() => { loadDoc(files[0]) }, [files])
+
+  useEffect(() => {
+    if(doc) {
+      const dom = (new DOMParser()).parseFromString(doc, 'text/xml')
+      const elems = {}
+      setKeys([])
+      setSVG(buildTree(dom.documentElement, elems))
+      setElems(elems)
+      setOrigBBox(dom.documentElement.attributes.viewBox.nodeValue)
+    }  
+  }, [doc])
+
+  useEffect(() => {
+    for(let key of keys) {
+      for(let anchor of [...key.current.childNodes]) {
+        if(!anchor.attributes) continue
+        const id = anchor.attributes['xlink:href'].nodeValue.replace(/^#/, '')
+        if(elems[id].current.style.opacity !== '0') {
+          setKeyTo(id)
+        }
+      }
+    }
+  }, [elems, keys])
+
+  console.info('OBB', origBBox)
 
   return (
     <div className='App' style={{height: '100vh'}}>
+      {files.length > 1 && <a id='back' onClick={back}>❌</a>}
       {SVG}
     </div>
   )

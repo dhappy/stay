@@ -9,3 +9,22 @@
 .parent:hover path {
   fill: blue ! important;
 }
+
+.key .active {
+  fill: orange ! important;
+}
+
+.key .active:hover {
+  fill: orangered ! important;
+}
+
+.key > *:hover {
+  fill: green ! important;
+}
+
+#back {
+  position: absolute;
+  right: 1em;
+  top: 1em;
+  font-size: 150%;
+}

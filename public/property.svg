@@ -5,6 +5,7 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="100%"
@@ -13,7 +14,7 @@
    version="1.1"
    id="665_Riddle_Creek"
    sodipodi:docname="property.svg"
-   inkscape:version="1.0 (9f2f71dc58, 2020-08-02)">
+   inkscape:version="1.0 (b51213c273, 2020-08-10)">
   <defs
      id="defs1282" />
   <sodipodi:namedview
@@ -23,7 +24,7 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4.965461"
+     inkscape:zoom="5.8653846"
      inkscape:cx="106.5251"
      inkscape:cy="85.34958"
      inkscape:document-units="mm"
@@ -34,7 +35,7 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="1861"
+     inkscape:window-width="2101"
      inkscape:window-height="1253"
      inkscape:window-x="787"
      inkscape:window-y="141"
@@ -47,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -164,8 +165,9 @@
            style="font-size:12.5px;line-height:1.25;font-family:sans-serif">Porch</tspan></text>
     </g>
     <g
-       id="cabin"
-       class="parent">
+       xlink:href="floorplan.svg"
+       class="parent"
+       id="cabin">
       <path
          style="display:inline;fill:#d7d7d7;stroke:#000009;stroke-width:0.105328;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          d="m 96.935384,44.570936 v 6.319663 h 28.546106 l 0.0317,-6.319663 z"

@@ -24,9 +24,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.8653846"
-     inkscape:cx="106.5251"
-     inkscape:cy="85.34958"
+     inkscape:zoom="4.8991239"
+     inkscape:cx="57.05183"
+     inkscape:cy="89.231924"
      inkscape:document-units="mm"
      inkscape:current-layer="property"
      inkscape:document-rotation="0"
@@ -35,7 +35,7 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="2101"
+     inkscape:window-width="2083"
      inkscape:window-height="1253"
      inkscape:window-x="787"
      inkscape:window-y="141"
@@ -56,13 +56,14 @@
      inkscape:label="665 Riddle Creek"
      inkscape:groupmode="layer"
      id="property"
-     transform="translate(-15.206123,-1.6327891)">
+     transform="translate(-15.206123,-1.6327891)"
+     style="opacity:1">
     <path
        style="display:inline;fill:#289039;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.421311px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 71.223124,14.823978 18.629185,46.98793 -11.724651,6.138586 -16.11297,-3.47067 -35.71941,24.3599 1.676414,11.772386 31.304868,8.05612 11.08256,-5.14056 -1.439992,45.21581 141.119482,-68.543706 0.072,-78.3357376 z"
+       d="m 81.719172,18.432731 8.13313,43.379196 -11.724651,6.138586 -16.11297,-3.47067 -35.71941,24.3599 1.676414,11.772387 31.304868,8.05612 11.08256,-5.14056 -1.439992,45.21581 141.119479,-68.543707 0.072,-78.3357376 -26.09397,0.013326 -5.47501,4.060592 z"
        id="land"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccccccccc">
+       sodipodi:nodetypes="cccccccccccccc">
       <title
          id="title856">Land</title>
     </path>
@@ -147,33 +148,35 @@
        style="display:inline"
        class="space">
       <path
-         sodipodi:nodetypes="ccscc"
+         sodipodi:nodetypes="ccccscc"
          inkscape:connector-curvature="0"
          id="path3789"
-         d="m 67.549264,10.040856 h 40.868906 c -0.72188,21.295459 1.92458,30.906408 -5.32088,39.6236 -6.659474,8.012174 -35.661236,9.509664 -35.661236,9.509664 z"
+         d="m 67.549264,28.470576 12.747634,-5.74851 -0.09111,-12.691841 28.212386,0.01063 c -0.72188,21.295459 1.92458,30.906408 -5.32088,39.6236 -6.659474,8.012174 -35.661236,9.509664 -35.661236,9.509664 z"
          style="display:inline;fill:#826e4e;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          x="71.129272"
-         y="34.289284"
-         id="text5439"><tspan
+         y="39.036369"
+         id="text5439"
+         inkscape:transform-center-x="-0.25846159"
+         inkscape:transform-center-y="-2.5547127"><tspan
            sodipodi:role="line"
            id="tspan5441"
            x="71.129272"
-           y="34.289284"
+           y="39.036369"
            style="font-size:12.5px;line-height:1.25;font-family:sans-serif">Porch</tspan></text>
     </g>
     <g
        xlink:href="floorplan.svg"
        class="parent"
-       id="cabin">
+       id="g874">
       <path
          style="display:inline;fill:#d7d7d7;stroke:#000009;stroke-width:0.105328;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         d="m 96.935384,44.570936 v 6.319663 h 28.546106 l 0.0317,-6.319663 z"
+         d="m 89.73723,26.529595 0,23.540002 35.74426,0.412762 0.0317,-6.319663 -28.856055,-0.332924 -0.08225,-17.221289 z"
          id="patio"
          inkscape:connector-curvature="0"
-         sodipodi:nodetypes="ccccc" />
+         sodipodi:nodetypes="ccccccc" />
       <g
          style="display:inline"
          id="building"

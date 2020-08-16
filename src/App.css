@@ -7,7 +7,7 @@
 }
 
 .parent:hover path {
-  fill: blue ! important;
+  fill: rgb(0, 0, 255, 0.5) ! important;
 }
 
 .key .active {
@@ -22,9 +22,61 @@
   fill: green ! important;
 }
 
+.key path, .key rect {
+  animation: keyborder 2s infinite;
+}
+
+@keyframes keyborder {
+  from { stroke: black; stroke-width: 4; }
+  50% { stroke: rgba(110, 8, 8, 0.5); stroke-width: 2.5; }
+  to { stroke: black; stroke-width: 4; }
+}
+
 #back {
   position: absolute;
   right: 1em;
   top: 1em;
   font-size: 150%;
+}
+
+#cabin {
+  cursor: cell;
+}
+
+.link {
+  cursor: url;
+}
+
+.link path, .link rect {
+  animation: linkborder 2s infinite;
+}
+
+@keyframes linkborder {
+  from { stroke: black; stroke-width: 0.25; }
+  50% { stroke: rgba(26, 23, 2, 0.644); stroke-width: 0.5; }
+  to { stroke: black; stroke-width: 0.25; }
+}
+
+.parent path, .parent rect {
+  animation: parentborder 2s infinite;
+}
+
+@keyframes parentborder {
+  from { stroke: rgba(0, 0, 0, 0.822); stroke-width: 2; }
+  33% { stroke: rgba(0, 0, 0, 0.822); stroke-width: 2; }
+  75% { stroke: rgba(119, 233, 90, 0.164); stroke-width: 2.75; }
+  to { stroke: rgba(0, 0, 0, 0.829); stroke-width: 2; }
+}
+
+.space {
+  cursor: alias;
+}
+
+svg {
+  animation: fadein 0.4s normal forwards ease-in-out;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

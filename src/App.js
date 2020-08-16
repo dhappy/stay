@@ -1,14 +1,14 @@
-import React, { useState, useEffect, createRef } from 'react'
+import React, { useState, useEffect, createRef, useRef } from 'react'
 import { TweenMax, Power3 } from 'gsap/all'
 import './App.css'
 
 export default () => {
-  const [files, setFiles] = useState(['property.svg'])
+  const [files, setFiles] = useState(['survey.svg'])
   const [doc, setDoc] = useState()
-  const [origBBox, setOrigBBox] = useState()
+  const defView = useRef(null)
   const [SVG, setSVG] = useState()
-  const [keys, setKeys] = useState([])
-  const [elems, setElems] = useState({})
+  const keys = useRef([])
+  const elems = useRef({})
   const svg = createRef()
 
   const camelCase = (str, sep = '-') => (
@@ -75,8 +75,8 @@ export default () => {
   const zoomTo = (elem) => {
     let newView = zoomedBox(elem)
     if(newView === svg.current.attributes.viewBox.nodeValue) {
-      console.info(newView, origBBox)
-      newView = origBBox
+      console.info(newView, defView.current)
+      newView = defView.current
     }
     TweenMax.to(
       svg.current, 1, { attr: { viewBox: newView }, ease: Power3.easeInOut }
@@ -85,10 +85,7 @@ export default () => {
 
   const setKeyTo = (to) => {
     to = to.replace(/^#/, '')
-
-    console.info('SK', keys)
-
-    for(let key of keys) {
+    for(let key of keys.current) {
       const anchors = (
         [...key.current.childNodes]
         .filter(c => c.attributes && c.attributes['xlink:href'])
@@ -98,14 +95,12 @@ export default () => {
         .map(c => c.attributes['xlink:href'].nodeValue.replace(/^#/, ''))
       )
 
-      console.info('SK', links)
-
       if(links.includes(to)) {
         for(let anchor of anchors) {
           if(!anchor.classList) continue
 
           const id = anchor.attributes['xlink:href'].nodeValue.replace(/^#/, '')
-          const elem = elems[id].current
+          const elem = elems.current[id] && elems.current[id].current
           const visible = id === to
 
           if(visible) {
@@ -115,10 +110,22 @@ export default () => {
           }
 
           TweenMax.to(
-            elem, 0.5, { opacity: visible ? 1 : 0, ease: Power3.easeInOut }
+            elem, 0.5, { display: visible ? 'inline' : 'none', opacity: visible ? 1 : 0, ease: Power3.easeInOut }
           )
         }
       }
+    }
+  }
+
+  const clickShow = (clicked, key) => {
+    if(clicked === key) return
+    while(clicked.parentNode !== key) {
+      clicked = clicked.parentNode
+    }
+    if([...clicked.classList].includes('active')) {
+      // toggle spaces visibility
+    } else {
+      setKeyTo(clicked.attributes['xlink:href'].nodeValue)
     }
   }
 
@@ -129,9 +136,12 @@ export default () => {
       const children = []
       for(let child of root.childNodes) {
         if(child.nodeType === Node.ELEMENT_NODE) {
-          if([...child.childNodes].find(
-            sub => sub.nodeType !== Node.TEXT_NODE
-          )) {
+          if(
+            child.childNodes.length === 0
+            || [...child.childNodes].find(
+              sub => sub.nodeType !== Node.TEXT_NODE
+            )
+          ) {
             children.push(buildTree(child, elems, key))
           } else {
             const attrs = cleanAttributes(child.attributes)
@@ -156,6 +166,8 @@ export default () => {
         elems[attrs.id] = attrs.ref
       }
 
+      attrs.onClick = (evt) => console.info(evt.target)
+
       if(['space'].includes(attrs.className)) {
         attrs.onClick = () => zoomTo(ref.current)
       }
@@ -164,30 +176,35 @@ export default () => {
         attrs.onClick = () => {
           const newView = zoomedBox(ref.current)
           TweenMax.to(
-            svg.current, 1, { attr: { viewBox: newView }, opacity: 0, ease: Power3.easeInOut, onComplete: () => setFiles(f => [attrs.xlinkHref, ...f])}
+            svg.current, 0.3, { attr: { viewBox: newView }, opacity: 0, ease: Power3.easeInOut, onComplete: () => setFiles(f => [attrs.xlinkHref, ...f])}
           )
         }
       }
 
       if(attrs.style && attrs.style.display === 'none') {
         attrs.style.opacity = 0
-        attrs.style.display = 'inline'
+      }
+
+      if(attrs['inkscape:label']) {
+        children.unshift(<title key={++key.val}>{attrs['inkscape:label']}</title>)
       }
 
       if(['key'].includes(attrs.className)) {
-        attrs.onClick = (evt) => {
-          let clicked = evt.target
-          while(clicked.parentNode !== attrs.ref.current) {
-            clicked = clicked.parentNode
-          }
-          if([...clicked.classList].includes('active')) {
-            // toggle spaces visibility
+        keys.current.push(attrs.ref)
+        attrs.onClick = (evt) => clickShow(evt.target, attrs.ref.current)
+      }
+
+      if(['link'].includes(attrs.className)) {
+        console.info('link', root.id, attrs.xlinkHref)
+        attrs.onClick = () => {
+          console.log(attrs.xlinkHref)
+          const dest = attrs.xlinkHref
+          if(dest.startsWith('#')) {
+            setKeyTo(dest)
           } else {
-            setKeyTo(clicked.attributes['xlink:href'].nodeValue)
+            setFiles(fs => [dest, ...fs])
           }
         }
-        console.info('Adding', attrs.ref)
-        setKeys(ks => [...ks, attrs.ref])
       }
 
       if(root.nodeName === 'svg') {
@@ -202,8 +219,11 @@ export default () => {
 
   const loadDoc = async (filename) => {
     const res = await fetch(filename)
-    const doc = await res.text()
-    setDoc(doc)
+    if(res.status >= 200 && res.status < 300) {
+      setDoc(await res.text())
+    } else {
+      alert(`Couldn't Load: ${filename}`)
+    }
   }
 
   const back = () => {
@@ -215,32 +235,29 @@ export default () => {
   useEffect(() => {
     if(doc) {
       const dom = (new DOMParser()).parseFromString(doc, 'text/xml')
-      const elems = {}
-      setKeys([])
-      setSVG(buildTree(dom.documentElement, elems))
-      setElems(elems)
-      setOrigBBox(dom.documentElement.attributes.viewBox.nodeValue)
+      keys.current = []
+      defView.current = dom.documentElement.attributes.viewBox.nodeValue
+      elems.current = {}
+      setSVG(buildTree(dom.documentElement, elems.current))
     }  
   }, [doc])
 
   useEffect(() => {
-    for(let key of keys) {
+    for(let key of keys.current) {
       for(let anchor of [...key.current.childNodes]) {
         if(!anchor.attributes) continue
         const id = anchor.attributes['xlink:href'].nodeValue.replace(/^#/, '')
-        if(elems[id].current.style.opacity !== '0') {
+        if(elems.current[id].current.style.opacity !== '0') {
           setKeyTo(id)
         }
       }
     }
-  }, [elems, keys])
-
-  console.info('OBB', origBBox)
+  }, [])
 
   return (
     <div className='App' style={{height: '100vh'}}>
-      {files.length > 1 && <a id='back' onClick={back}>❌</a>}
       {SVG}
+      {files.length > 1 && <a id='back' onClick={back}>❌</a>}
     </div>
   )
 }

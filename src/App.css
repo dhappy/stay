@@ -80,3 +80,8 @@ svg {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+h1 {
+  text-align: center;
+  margin: 0;
+}

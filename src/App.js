@@ -5,11 +5,12 @@ import './App.css'
 export default () => {
   const [files, setFiles] = useState(['survey.svg'])
   const [doc, setDoc] = useState()
-  const defView = useRef(null)
+  const origView = useRef(null)
   const [SVG, setSVG] = useState()
   const keys = useRef([])
   const elems = useRef({})
   const svg = createRef()
+  const [tooltip, setTooltip] = useState()
 
   const camelCase = (str, sep = '-') => (
     str.split(sep)
@@ -75,8 +76,7 @@ export default () => {
   const zoomTo = (elem) => {
     let newView = zoomedBox(elem)
     if(newView === svg.current.attributes.viewBox.nodeValue) {
-      console.info(newView, defView.current)
-      newView = defView.current
+      newView = origView.current
     }
     TweenMax.to(
       svg.current, 1, { attr: { viewBox: newView }, ease: Power3.easeInOut }
@@ -166,8 +166,6 @@ export default () => {
         elems[attrs.id] = attrs.ref
       }
 
-      attrs.onClick = (evt) => console.info(evt.target)
-
       if(['space'].includes(attrs.className)) {
         attrs.onClick = () => zoomTo(ref.current)
       }
@@ -197,7 +195,6 @@ export default () => {
       if(['link'].includes(attrs.className)) {
         console.info('link', root.id, attrs.xlinkHref)
         attrs.onClick = () => {
-          console.log(attrs.xlinkHref)
           const dest = attrs.xlinkHref
           if(dest.startsWith('#')) {
             setKeyTo(dest)
@@ -209,6 +206,20 @@ export default () => {
 
       if(root.nodeName === 'svg') {
         attrs.ref = svg
+      }
+
+      if(!attrs.onClick) {
+        attrs.onClick = (evt) => {
+          let node = evt.target
+          while(node.parentNode && !node.attributes['inkscape:label']) {
+            node = node.parentNode
+          }
+          if(!node || !node.attributes) {
+            setTooltip('')
+          } else {
+            setTooltip(node.attributes['inkscape:label'].nodeValue)
+          }
+        }
       }
 
       return React.createElement(
@@ -236,7 +247,7 @@ export default () => {
     if(doc) {
       const dom = (new DOMParser()).parseFromString(doc, 'text/xml')
       keys.current = []
-      defView.current = dom.documentElement.attributes.viewBox.nodeValue
+      origView.current = dom.documentElement.attributes.viewBox.nodeValue
       elems.current = {}
       setSVG(buildTree(dom.documentElement, elems.current))
     }  
@@ -247,15 +258,17 @@ export default () => {
       for(let anchor of [...key.current.childNodes]) {
         if(!anchor.attributes) continue
         const id = anchor.attributes['xlink:href'].nodeValue.replace(/^#/, '')
+        console.info('checking', anchor.id, id, elems.current[id].current.style.opacity)
         if(elems.current[id].current.style.opacity !== '0') {
           setKeyTo(id)
         }
       }
     }
-  }, [])
+  }, [SVG])
 
   return (
     <div className='App' style={{height: '100vh'}}>
+      {tooltip && <h1>{tooltip}</h1>}
       {SVG}
       {files.length > 1 && <a id='back' onClick={back}>❌</a>}
     </div>

@@ -61,6 +61,38 @@
        x2="140.13666"
        y2="29.603472"
        gradientUnits="userSpaceOnUse" />
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter6064">
+      <feFlood
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood6054" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite6056" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="2"
+         result="blur"
+         id="feGaussianBlur6058" />
+      <feOffset
+         dx="5"
+         dy="4"
+         result="offset"
+         id="feOffset6060" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite6062" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -69,17 +101,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6568545"
-     inkscape:cx="162.54492"
-     inkscape:cy="101.94272"
+     inkscape:zoom="11.313709"
+     inkscape:cx="193.90335"
+     inkscape:cy="58.247041"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer4"
      inkscape:document-rotation="0"
      showgrid="false"
      inkscape:window-width="1763"
      inkscape:window-height="1083"
-     inkscape:window-x="1132"
-     inkscape:window-y="147"
+     inkscape:window-x="1141"
+     inkscape:window-y="74"
      inkscape:window-maximized="0"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -299,9 +331,10 @@
      style="display:inline">
     <g
        xlink:href="property.svg"
-       id="goat"
+       style="filter:url(#filter6064)"
+       class="parent"
        transform="matrix(0.30087562,0,0,0.30087562,121.52658,25.107007)"
-       class="parent">
+       id="goat">
       <g
          id="g3403"
          transform="translate(92.571352,52.170447)">

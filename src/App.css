@@ -7,7 +7,7 @@
 }
 
 .parent:hover path {
-  fill: rgb(0, 0, 255, 0.5) ! important;
+  fill: rgba(238, 78, 4, 0.733) ! important;
 }
 
 .key .active {
@@ -53,7 +53,7 @@
 
 @keyframes linkborder {
   from { stroke: black; stroke-width: 0.25; }
-  50% { stroke: rgba(26, 23, 2, 0.644); stroke-width: 0.5; }
+  50% { stroke: rgba(98, 87, 4, 0.644); stroke-width: 0.5; }
   to { stroke: black; stroke-width: 0.25; }
 }
 
@@ -64,7 +64,9 @@
 @keyframes parentborder {
   from { stroke: rgba(0, 0, 0, 0.822); stroke-width: 2; }
   33% { stroke: rgba(0, 0, 0, 0.822); stroke-width: 2; }
-  75% { stroke: rgba(119, 233, 90, 0.164); stroke-width: 2.75; }
+  70% { stroke: rgba(36, 99, 20, 0.575); stroke-width: 2.75; }
+  80% { stroke: rgba(0, 0, 0, 0.822); stroke-width: 2; }
+  90% { stroke: rgba(36, 99, 20, 0.575); stroke-width: 2.75; }
   to { stroke: rgba(0, 0, 0, 0.829); stroke-width: 2; }
 }
 

@@ -8,9 +8,11 @@ export default () => {
   const origView = useRef(null)
   const [SVG, setSVG] = useState()
   const keys = useRef([])
+  const spaces = useRef([])
   const elems = useRef({})
   const svg = createRef()
   const [tooltip, setTooltip] = useState()
+  const tipTimeout = createRef()
 
   const camelCase = (str, sep = '-') => (
     str.split(sep)
@@ -123,7 +125,13 @@ export default () => {
       clicked = clicked.parentNode
     }
     if([...clicked.classList].includes('active')) {
-      // toggle spaces visibility
+      for(let space of spaces.current) {
+        const visible = space.current.style.opacity !== '0'
+        console.info(visible, space.current.id, space.current.style.opacity)
+        TweenMax.to(
+          space.current, 0.5, { display: visible ? 'none' : 'inline', opacity: visible ? 0 : 1, ease: Power3.easeInOut }
+        )  
+      }
     } else {
       setKeyTo(clicked.attributes['xlink:href'].nodeValue)
     }
@@ -187,6 +195,11 @@ export default () => {
         children.unshift(<title key={++key.val}>{attrs['inkscape:label']}</title>)
       }
 
+      if(attrs['inkscape:label'] === 'space') {
+        spaces.current.push(attrs.ref)
+
+      }
+
       if(['key'].includes(attrs.className)) {
         keys.current.push(attrs.ref)
         attrs.onClick = (evt) => clickShow(evt.target, attrs.ref.current)
@@ -218,7 +231,10 @@ export default () => {
             setTooltip('')
           } else {
             setTooltip(node.attributes['inkscape:label'].nodeValue)
-            setTimeout(() => setTooltip(), 5000)
+            if(tipTimeout.current) {
+              clearTimeout(tipTimeout.current)
+            }
+            tipTimeout.current = setTimeout(() => setTooltip(), 5000)
           }
         }
       }
@@ -248,6 +264,7 @@ export default () => {
     if(doc) {
       const dom = (new DOMParser()).parseFromString(doc, 'text/xml')
       keys.current = []
+      spaces.current = []
       origView.current = dom.documentElement.attributes.viewBox.nodeValue
       elems.current = {}
       setSVG(buildTree(dom.documentElement, elems.current))

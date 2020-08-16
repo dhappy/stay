@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createRef, useRef } from 'react'
 import { TweenMax, Power3 } from 'gsap/all'
 import './App.css'
+import { box } from 'tweetnacl'
 
 export default () => {
   const [files, setFiles] = useState(['survey.svg'])
@@ -10,9 +11,9 @@ export default () => {
   const keys = useRef([])
   const spaces = useRef([])
   const elems = useRef({})
-  const svg = createRef()
+  const svg = useRef()
   const [tooltip, setTooltip] = useState()
-  const tipTimeout = createRef()
+  const tipTimeout = useRef()
 
   const camelCase = (str, sep = '-') => (
     str.split(sep)
@@ -25,6 +26,21 @@ export default () => {
     })
     .join('')
   )
+
+  const getViewBox = () => {
+    const str = svg.current.attributes.viewBox.nodeValue
+    const parts = str.split(/\s+/).map(parseFloat)
+    return {
+      x: parts[0], y: parts[1], width: parts[2], height: parts[3]
+    }
+  }
+
+  const setViewBox = (box) => {
+    if(typeof box !== 'string') {
+      box = [box.x, box.y, box.width, box.height].join(' ')
+    }
+    svg.current.setAttribute('viewBox', box)
+  }
 
   const cleanAttributes = (attributes) => {
     const attrs = {}
@@ -167,7 +183,7 @@ export default () => {
       const attrs = cleanAttributes(root.attributes)
       attrs.key = ++key.val
 
-      const ref = createRef()
+      const ref = (root.nodeName === 'svg') ? svg : createRef()
       attrs.ref = ref
 
       if(attrs.id) {
@@ -182,7 +198,20 @@ export default () => {
         attrs.onClick = () => {
           const newView = zoomedBox(ref.current)
           TweenMax.to(
-            svg.current, 0.3, { attr: { viewBox: newView }, opacity: 0, ease: Power3.easeInOut, onComplete: () => setFiles(f => [attrs.xlinkHref, ...f])}
+            svg.current, 0.5,
+            {
+              attr: { viewBox: newView },
+              ease: Power3.easeInOut,
+            }
+          )
+          TweenMax.to(
+            svg.current, 0.1,
+            {
+              opacity: 0,
+              ease: Power3.easeInOut,
+              delay: 0.4,
+              onComplete: () => setFiles(f => [attrs.xlinkHref, ...f])
+            }
           )
         }
       }
@@ -221,16 +250,19 @@ export default () => {
           for(let space of spaces.current) {
             const visible = space.current.style.opacity !== '0'
             TweenMax.to(
-              space.current, 0.5, { display: visible ? 'none' : 'inline', opacity: visible ? 0 : 1, ease: Power3.easeInOut }
+              space.current, 0.5,
+              {
+                display: visible ? 'none' : 'inline',
+                opacity: visible ? 0 : 1,
+                ease: Power3.easeInOut
+              }
             )
           }
         }
-        window.addEventListener('keypress', (evt) => { if(evt.key === 's') handler() })
+        window.addEventListener(
+          'keypress', (evt) => { if(evt.key === 's') handler() }
+        )
         attrs.onClick = handler
-      }
-
-      if(root.nodeName === 'svg') {
-        attrs.ref = svg
       }
 
       if(!attrs.onClick) {
@@ -242,6 +274,8 @@ export default () => {
           if(!node || !node.attributes) {
             setTooltip('')
           } else {
+            node.classList.add('clicked')
+            setTimeout(() => node.classList.remove('clicked'), 1000)
             setTooltip(node.attributes['inkscape:label'].nodeValue)
             if(tipTimeout.current) {
               clearTimeout(tipTimeout.current)
@@ -281,14 +315,13 @@ export default () => {
       elems.current = {}
       setSVG(buildTree(dom.documentElement, elems.current))
     }  
-  }, [doc])
+  }, [doc]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     for(let key of keys.current) {
       for(let anchor of [...key.current.childNodes]) {
         if(!anchor.attributes) continue
         const id = anchor.attributes['xlink:href'].nodeValue.replace(/^#/, '')
-        console.info('checking', anchor.id, id, elems.current[id].current.style.opacity)
         if(elems.current[id].current.style.opacity !== '0') {
           setKeyTo(id)
         }
@@ -296,11 +329,60 @@ export default () => {
     }
   }, [SVG])
 
+  useEffect(() => {
+    const handler = (evt) => {
+      let view = getViewBox()
+      const mult = (evt.altKey ? 0.025 : 0.1) * (evt.deltaY / Math.abs(evt.deltaY))
+      if(evt.shiftKey) { // pan
+        view.x += view.width * mult
+      } else if(evt.ctrlKey) { // zoom
+        evt.preventDefault()
+
+        const point = svg.current.createSVGPoint()
+        point.x = evt.clientX
+        point.y = evt.clientY
+        const viewPoint = point.matrixTransform(svg.current.getScreenCTM().inverse())
+        const d = { x: viewPoint.x - view.x, y: viewPoint.y - view.y }
+        const newView = {
+          width: view.width * (1 - mult), height: view.height * (1 - mult)
+        }
+        const dPrime = {
+          x: newView.width * (d.x / view.width),
+          y: newView.height * (d.y / view.height),
+        }
+        newView.x = viewPoint.x - dPrime.x
+        newView.y = viewPoint.y - dPrime.y
+        view = newView
+      } else { // scroll
+        view.y += view.height * mult
+      }
+      setViewBox(view)
+    }
+  
+    window.addEventListener('wheel', handler, { passive: false })
+    return () => window.removeEventListener('wheel', handler)
+  }, [])
+
+  useEffect(() => {
+    const handler = (evt) => {
+      if(evt.key === 'Enter') {
+        setViewBox(origView.current)
+      }
+    }
+    window.addEventListener('keypress', handler)
+    return () => window.removeEventListener('keypress', handler)
+  }, [])
+
+
   return (
     <div className='App' style={{height: '100vh'}}>
       {SVG}
       {tooltip && <h1>{tooltip}</h1>}
-      {files.length > 1 && <a id='back' onClick={back}>❌</a>}
+      {files.length > 1 &&
+        <button id='back' onClick={back}>
+          <span role='img' aria-label='Close'>❌</span>
+        </button>
+      }
     </div>
   )
 }

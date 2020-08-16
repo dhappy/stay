@@ -1,4 +1,4 @@
-.space > *, .parent path {
+.space > *, .parent * {
   transition: fill 1s ease;
 }
 
@@ -6,7 +6,7 @@
   fill: yellow ! important;
 }
 
-.parent:hover path {
+.parent:hover * {
   fill: rgba(238, 78, 4, 0.733) ! important;
 }
 
@@ -18,18 +18,20 @@
   fill: orangered ! important;
 }
 
-.key > *:hover {
+.key > *:hover, .link:hover * {
   fill: green ! important;
+  fill-opacity: 0.5 !important;
+  stroke-dasharray: 0 !important;
 }
 
-.key path, .key rect, .toggle path {
-  animation: keyborder 2s infinite;
+.key *, .toggle * {
+  animation: keyborder 1s infinite;
+  animation-direction: alternate;
 }
 
 @keyframes keyborder {
-  from { stroke: black; stroke-width: 4; }
-  50% { stroke: rgba(110, 8, 8, 0.5); stroke-width: 2.5; }
-  to { stroke: black; stroke-width: 4; }
+  from { stroke: default; stroke-width: 2%; }
+  to { stroke: rgba(110, 8, 8, 0.5); stroke-width: 3%; }
 }
 
 #back {
@@ -37,37 +39,47 @@
   right: 1em;
   top: 1em;
   font-size: 150%;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 #cabin {
   cursor: cell;
 }
 
-.link {
-  cursor: url;
+.link, .key, .toggle {
+  cursor: pointer;
 }
 
-.link path, .link rect {
-  animation: linkborder 2s infinite;
+.link * {
+  animation: linkborder 1s infinite;
+  animation-direction: alternate;
+  transition: fill 0.5s ease-in-out, fill-opacity 0.25s ease-in-out;
+  stroke-dasharray: 0.25 0.1 !important;
 }
 
 @keyframes linkborder {
-  from { stroke: black; stroke-width: 0.25; }
-  50% { stroke: rgba(168, 149, 5, 0.644); stroke-width: 0.5; }
-  to { stroke: black; stroke-width: 0.25; }
+  from { stroke: currentColor; stroke-width: 0.25%; stroke-dashoffset: 0; }
+  to { stroke: rgba(2, 165, 130, 0.63); stroke-width: 0.4%; stroke-dashoffset: 1; }
 }
 
-.parent path, .parent rect {
-  animation: parentborder 2s infinite;
+@keyframes marching {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: 1; }
+}
+
+.parent * {
+  animation: parentborder 2.5s infinite both ease-in-out;
 }
 
 @keyframes parentborder {
-  from { stroke: rgba(0, 0, 0, 0.822); stroke-width: 2; }
-  33% { stroke: rgba(0, 0, 0, 0.822); stroke-width: 2; }
-  70% { stroke: rgba(36, 99, 20, 0.575); stroke-width: 2.75; }
-  80% { stroke: rgba(0, 0, 0, 0.822); stroke-width: 2; }
-  90% { stroke: rgba(36, 99, 20, 0.575); stroke-width: 2.75; }
-  to { stroke: rgba(0, 0, 0, 0.829); stroke-width: 2; }
+  from { stroke: default; }
+  33% { stroke: rgba(0, 0, 0, 0.822); stroke-width: 1%; }
+  70% { stroke: rgba(36, 99, 20, 0.575); stroke-width: 1.5%; }
+  80% { stroke: rgba(158, 10, 10, 0.904); stroke-width: 1.25%; }
+  90% { stroke: rgba(36, 99, 20, 0.575); stroke-width: 1%; }
+  to { stroke: default; }
 }
 
 .space {
@@ -100,7 +112,7 @@ h1 {
 
 .toggle.on circle {
   fill: red !important;
-  transform: translate(0, 3px) !important;
+  transform: translate(0, 50px) !important;
 }
 
 .toggle.on rect {
@@ -109,4 +121,51 @@ h1 {
 
 .toggle:hover rect {
   fill: green !important;
+}
+
+.clicked {
+  animation-name: blink;
+  animation-duration: 0.75s;
+  animation-timing-function: ease;
+  animation-iteration-count: 1;
+}
+
+@keyframes blink {
+  10% { opacity: 0.75; }
+  20% { opacity: 1; }
+  40% { opacity: 0.75; }
+  60% { opacity: 1; }
+  80% { opacity: 0.75; }
+  to { opacity: 1; }
+}
+
+.clicked * {
+  animation-name: highlight;
+  animation-duration: 0.75s;
+  animation-timing-function: ease;
+  animation-iteration-count: 1;
+}
+
+.clicked.toggle, .clicked.toggle * {
+  animation: none;
+}
+
+@keyframes highlight {
+  30% { stroke: red; stroke-opacity: 0.5; }
+  70% { stroke: red; stroke-opacity: 0.75; }
+}
+
+#survey g g g:hover * {
+  fill-opacity: 1 !important;
+}
+
+* {
+  transition: fill-opacity 0.25s ease;
+  transition: fill 0.05s ease;
+}
+
+text, .parent:hover text, tspan, .parent:hover tspan {
+  animation: none !important;
+  fill: currentColor !important;
+  stroke: none !important;
 }

@@ -45,13 +45,13 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:zoom="11.313709"
-     inkscape:cx="57.413432"
-     inkscape:cy="29.397774"
-     inkscape:window-x="407"
-     inkscape:window-y="107"
+     inkscape:zoom="8"
+     inkscape:cx="35.687337"
+     inkscape:cy="44.599889"
+     inkscape:window-x="690"
+     inkscape:window-y="86"
      inkscape:window-maximized="0"
-     inkscape:current-layer="layer70"
+     inkscape:current-layer="layer90"
      inkscape:document-rotation="0"
      showguides="true"
      inkscape:guide-bbox="true">
@@ -555,13 +555,15 @@
            inkscape:groupmode="layer"
            id="layer73"
            inkscape:label="shower">
-          <rect
-             style="display:inline;fill:#d2d2d2;fill-opacity:1;stroke:#020617;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+          <path
              id="rect4103"
-             width="2.4519691"
-             height="2.4018188"
-             x="34.602112"
-             y="5.7052178" />
+             style="display:inline;fill:#d2d2d2;fill-opacity:1;stroke:#020617;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+             d="m 34.602112,5.7052178 h 2.451969 c 0.09433,0.00357 0.697015,0.3123128 0,0.4799606 -0.419004,0.1007799 -0.475567,0.3307971 0,0.4162855 0.219692,0.039492 0.522746,0.3665881 0,0.4672016 -0.421403,0.081108 -0.444527,0.378552 0,0.4650272 0.462912,0.090052 0.31411,0.5959982 0,0.5733439 h -2.451969 z"
+             sodipodi:nodetypes="ccssssccc" />
+          <path
+             style="fill:none;stroke:#000000;stroke-width:0.188976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             d="M 37.03912,8.093942 V 5.744912"
+             id="path1369" />
         </g>
         <g
            inkscape:groupmode="layer"
@@ -600,6 +602,235 @@
              x="13.680337"
              y="-46.917999"
              transform="rotate(90)" />
+        </g>
+      </g>
+      <g
+         inkscape:groupmode="layer"
+         id="layer50"
+         inkscape:label="space"
+         style="display:none">
+        <g
+           inkscape:groupmode="layer"
+           id="layer85"
+           inkscape:label="Screened-In Porch"
+           style="display:inline"
+           class="space">
+          <rect
+             style="display:inline;fill:#797bda;fill-opacity:0.935002;stroke:#020617;stroke-width:0.589;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+             id="rect1396-5"
+             width="42.99189"
+             height="18.202475"
+             x="19.681948"
+             y="-12.985799" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-weight:normal;font-size:5.33333px;line-height:1.25;font-family:sans-serif;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+             x="40.406113"
+             y="-5.9509134"
+             id="text1415"><tspan
+               sodipodi:role="line"
+               id="tspan1413"
+               x="40.406113"
+               y="-5.9509134"
+               style="font-size:5.33333px;text-align:center;text-anchor:middle">Screened-In</tspan><tspan
+               sodipodi:role="line"
+               x="40.406113"
+               y="0.71574926"
+               style="font-size:5.33333px;text-align:center;text-anchor:middle"
+               id="tspan1417">Porch</tspan></text>
+        </g>
+        <g
+           inkscape:groupmode="layer"
+           id="layer86"
+           inkscape:label="Bed"
+           style="display:inline"
+           class="space">
+          <rect
+             style="display:inline;fill:#797bda;fill-opacity:0.935002;stroke:#020617;stroke-width:0.589;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+             id="rect1396"
+             width="19.066681"
+             height="20.222462"
+             x="2.2863281"
+             y="5.0669708" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-weight:normal;font-size:5.33333px;line-height:1.25;font-family:sans-serif;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+             x="12.308138"
+             y="16.982056"
+             id="text1415-5"><tspan
+               sodipodi:role="line"
+               x="12.308138"
+               y="16.982056"
+               style="font-size:5.33333px;text-align:center;text-anchor:middle"
+               id="tspan1417-2">Bed</tspan></text>
+        </g>
+        <g
+           inkscape:groupmode="layer"
+           id="layer87"
+           inkscape:label="Dual Full Beds"
+           style="display:inline"
+           class="space">
+          <rect
+             style="display:inline;fill:#797bda;fill-opacity:0.935002;stroke:#020617;stroke-width:0.589;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+             id="rect1396-3-2"
+             width="21.300938"
+             height="20.144302"
+             x="47.476223"
+             y="4.976109" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-weight:normal;font-size:5.33333px;line-height:1.25;font-family:sans-serif;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+             x="58.269081"
+             y="10.061197"
+             id="text1415-5-9-7"><tspan
+               sodipodi:role="line"
+               x="58.269081"
+               y="10.061197"
+               style="font-size:5.33333px;text-align:center;text-anchor:middle"
+               id="tspan1417-2-1-0">Dual</tspan><tspan
+               sodipodi:role="line"
+               x="58.269081"
+               y="16.727859"
+               style="font-size:5.33333px;text-align:center;text-anchor:middle"
+               id="tspan1519">Full</tspan><tspan
+               sodipodi:role="line"
+               x="58.269081"
+               y="23.394524"
+               style="font-size:5.33333px;text-align:center;text-anchor:middle"
+               id="tspan1521">Beds</tspan></text>
+        </g>
+        <g
+           inkscape:groupmode="layer"
+           id="layer88"
+           inkscape:label="Bathroom"
+           style="display:inline"
+           class="space">
+          <path
+             id="rect1396-3-2-9"
+             style="display:inline;fill:#797bda;fill-opacity:0.935002;stroke:#020617;stroke-width:0.589;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+             d="m 33.885651,4.976109 h 13.590575 v 9.331122 H 36.413018 V 8.6234149 l -2.527367,0.0093 z"
+             sodipodi:nodetypes="ccccccc" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-weight:normal;font-size:3.68374px;line-height:0.75;font-family:sans-serif;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.690702"
+             x="41.828693"
+             y="9.5513439"
+             id="text1415-5-9-3"><tspan
+               sodipodi:role="line"
+               x="41.828693"
+               y="9.5513439"
+               style="font-size:3.68374px;text-align:center;text-anchor:middle;stroke-width:0.690702"
+               id="tspan1417-2-1-6">¾</tspan><tspan
+               sodipodi:role="line"
+               x="41.828693"
+               y="12.314149"
+               style="font-size:3.68374px;text-align:center;text-anchor:middle;stroke-width:0.690702"
+               id="tspan1559">Bath</tspan></text>
+        </g>
+        <g
+           inkscape:groupmode="layer"
+           id="layer89"
+           inkscape:label="Fouton"
+           style="display:inline"
+           class="space">
+          <rect
+             style="display:inline;fill:#797bda;fill-opacity:0.935002;stroke:#020617;stroke-width:0.589;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+             id="rect1396-0"
+             width="9.1899166"
+             height="20.222462"
+             x="21.353008"
+             y="5.0669708" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-weight:normal;font-size:5.33333px;line-height:1.25;font-family:sans-serif;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+             x="15.032449"
+             y="-24.368517"
+             id="text1415-5-6"
+             transform="rotate(90)"><tspan
+               sodipodi:role="line"
+               x="15.032449"
+               y="-24.368517"
+               style="font-size:5.33333px;text-align:center;text-anchor:middle"
+               id="tspan1417-2-2">Fouton</tspan></text>
+        </g>
+        <g
+           inkscape:groupmode="layer"
+           id="layer90"
+           inkscape:label="Bed"
+           style="display:inline"
+           class="space">
+          <path
+             id="rect1396-3"
+             style="display:inline;fill:#797bda;fill-opacity:0.935002;stroke:#020617;stroke-width:0.589;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+             d="M 35.259094,24.879088 H 68.833881 V 44.515721 H 55.70691 l -0.03602,6.494531 c -4.358393,0.238937 -8.303663,-3.104514 -8.389354,-6.494531 H 35.259094 Z"
+             sodipodi:nodetypes="cccccccc" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-weight:normal;font-size:5.33333px;line-height:1.25;font-family:sans-serif;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+             x="52.74646"
+             y="35.75293"
+             id="text1415-5-9"><tspan
+               sodipodi:role="line"
+               x="52.74646"
+               y="35.75293"
+               style="font-size:5.33333px;text-align:center;text-anchor:middle"
+               id="tspan1417-2-1">Bed</tspan></text>
+        </g>
+        <g
+           inkscape:groupmode="layer"
+           id="layer91"
+           inkscape:label="Linen Closet"
+           style="display:inline"
+           class="space">
+          <rect
+             style="display:inline;fill:#797bda;fill-opacity:0.935002;stroke:#020617;stroke-width:0.589;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+             id="rect1396-6"
+             width="6.3652649"
+             height="8.2899456"
+             x="36.413017"
+             y="14.307644" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-weight:normal;font-size:2.22587px;line-height:0.85;font-family:sans-serif;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.417352"
+             x="18.348846"
+             y="-39.795803"
+             id="text1415-5-9-3-1"
+             transform="rotate(90)"><tspan
+               sodipodi:role="line"
+               x="18.348846"
+               y="-39.795803"
+               style="font-size:2.22587px;text-align:center;text-anchor:middle;stroke-width:0.417352"
+               id="tspan1417-2-1-6-8">Linen</tspan><tspan
+               sodipodi:role="line"
+               x="18.348846"
+               y="-37.903812"
+               style="font-size:2.22587px;text-align:center;text-anchor:middle;stroke-width:0.417352"
+               id="tspan1559-7">Closet</tspan></text>
+        </g>
+        <g
+           inkscape:groupmode="layer"
+           id="layer92"
+           inkscape:label="Closet"
+           style="display:inline"
+           class="space">
+          <rect
+             style="display:inline;fill:#797bda;fill-opacity:0.935002;stroke:#020617;stroke-width:0.589;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+             id="rect1396-9"
+             width="3.3427262"
+             height="3.5657442"
+             x="30.542925"
+             y="5.0669708" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-weight:normal;font-size:0.723357px;line-height:1.25;font-family:sans-serif;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.13563"
+             x="32.244648"
+             y="6.5674586"
+             id="text1415-2"><tspan
+               sodipodi:role="line"
+               x="32.244648"
+               y="6.5674586"
+               style="font-size:0.723357px;text-align:center;text-anchor:middle;stroke-width:0.13563"
+               id="tspan1417-23">Closet</tspan></text>
         </g>
       </g>
     </g>
@@ -1753,21 +1984,34 @@
            inkscape:groupmode="layer"
            id="layer66"
            inkscape:label="couches">
-          <path
-             style="display:inline;fill:#654a08;fill-opacity:0.709973;stroke:#1e130f;stroke-width:0.169146;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="m 21.199202,17.334667 h 11.327994 v -3.366683 c -1.094657,-1.444627 -10.310356,-1.399342 -11.387051,0 z"
-             id="path3347"
-             sodipodi:nodetypes="ccccc" />
-          <path
-             style="display:inline;fill:#654a08;fill-opacity:0.709973;stroke:#1e130f;stroke-width:0.169146;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="m 32.263462,20.653675 v 11.327994 h 3.366684 c 1.444626,-1.094656 1.399342,-10.310356 0,-11.387051 z"
-             id="path3347-5"
-             sodipodi:nodetypes="ccccc" />
-          <path
-             style="fill:none;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="m 22.333768,17.351046 0.02134,-3.327457 c 2.47528,-0.229407 3.539447,-1.080333 8.988394,0 v 3.343912"
-             id="path5209"
-             sodipodi:nodetypes="cccc" />
+          <g
+             id="g1373">
+            <path
+               style="display:inline;fill:#654a08;fill-opacity:0.709973;stroke:#1e130f;stroke-width:0.169146;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="m 21.199202,17.334667 h 11.327994 v -3.366683 c -1.094657,-1.444627 -10.310356,-1.399342 -11.387051,0 z"
+               id="path3347"
+               sodipodi:nodetypes="ccccc" />
+            <path
+               style="fill:none;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="m 22.333768,17.351046 0.02134,-3.327457 c 2.47528,-0.229407 3.539447,-1.080333 8.988394,0 v 3.343912"
+               id="path5209"
+               sodipodi:nodetypes="cccc" />
+          </g>
+          <g
+             id="g1373-3"
+             style="display:inline"
+             transform="rotate(90,25.328899,23.908298)">
+            <path
+               style="display:inline;fill:#654a08;fill-opacity:0.709973;stroke:#1e130f;stroke-width:0.169146;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="m 21.199202,17.334667 h 11.327994 v -3.366683 c -1.094657,-1.444627 -10.310356,-1.399342 -11.387051,0 z"
+               id="path3347-6"
+               sodipodi:nodetypes="ccccc" />
+            <path
+               style="fill:none;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="m 22.333768,17.351046 0.02134,-3.327457 c 2.47528,-0.229407 3.539447,-1.080333 8.988394,0 v 3.343912"
+               id="path5209-7"
+               sodipodi:nodetypes="cccc" />
+          </g>
         </g>
         <g
            inkscape:groupmode="layer"
@@ -3125,7 +3369,7 @@
      style="display:inline">
     <g
        id="g1301"
-       transform="matrix(0.09171937,0,0,0.09171937,-51.132007,17.580812)"
+       transform="matrix(0.11871688,0,0,0.11871688,-61.524848,4.8304797)"
        style="fill:#ffffff;fill-opacity:1"
        class="key">
       <rect
@@ -3168,6 +3412,27 @@
            id="path3894"
            d="m 499.25768,408.82222 22.75661,-38.24245 24.11732,38.24245" />
       </g>
+    </g>
+    <g
+       inkscape:groupmode="layer"
+       id="layer28"
+       inkscape:label="spaces toggle"
+       class="toggle">
+      <rect
+         style="display:inline;fill:#dab879;stroke:#020617;stroke-width:0.392;stroke-linecap:round;stroke-linejoin:round"
+         id="rect1354"
+         width="4.2956672"
+         height="8.1315203"
+         x="5.2192097"
+         y="51.349327"
+         rx="2.1478336"
+         ry="2.6453969" />
+      <circle
+         style="display:inline;fill:#797bda;fill-opacity:1;stroke:#020617;stroke-width:0.392;stroke-linecap:round;stroke-linejoin:round"
+         id="path1357"
+         cx="7.3367805"
+         cy="53.722878"
+         r="1.3118929" />
     </g>
   </g>
   <g

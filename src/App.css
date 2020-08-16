@@ -22,7 +22,7 @@
   fill: green ! important;
 }
 
-.key path, .key rect {
+.key path, .key rect, .toggle path {
   animation: keyborder 2s infinite;
 }
 
@@ -53,7 +53,7 @@
 
 @keyframes linkborder {
   from { stroke: black; stroke-width: 0.25; }
-  50% { stroke: rgba(98, 87, 4, 0.644); stroke-width: 0.5; }
+  50% { stroke: rgba(168, 149, 5, 0.644); stroke-width: 0.5; }
   to { stroke: black; stroke-width: 0.25; }
 }
 
@@ -92,4 +92,21 @@ h1 {
   transform: translate(-50%, 0);
   background-color: rgba(247, 226, 226, 0.822);
   padding: 0.5em;
+}
+
+.toggle circle {
+  transition: transform 0.5s ease, fill 0.5s ease;
+}
+
+.toggle.on circle {
+  fill: red !important;
+  transform: translate(0, 3px) !important;
+}
+
+.toggle.on rect {
+  fill: orange !important;
+}
+
+.toggle:hover rect {
+  fill: green !important;
 }

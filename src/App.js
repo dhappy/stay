@@ -52,6 +52,12 @@ export default () => {
         delete attrs[attr]
       }
     }
+    for(let attr of ['flood-opacity', 'flood-color']) {
+      if(attrs[attr]) {
+        attrs[camelCase(attr, '-')] = attrs[attr]
+        delete attrs[attr]
+      }
+    }
 
     return attrs
   }
@@ -125,13 +131,7 @@ export default () => {
       clicked = clicked.parentNode
     }
     if([...clicked.classList].includes('active')) {
-      for(let space of spaces.current) {
-        const visible = space.current.style.opacity !== '0'
-        console.info(visible, space.current.id, space.current.style.opacity)
-        TweenMax.to(
-          space.current, 0.5, { display: visible ? 'none' : 'inline', opacity: visible ? 0 : 1, ease: Power3.easeInOut }
-        )  
-      }
+      // Do what?
     } else {
       setKeyTo(clicked.attributes['xlink:href'].nodeValue)
     }
@@ -197,7 +197,6 @@ export default () => {
 
       if(attrs['inkscape:label'] === 'space') {
         spaces.current.push(attrs.ref)
-
       }
 
       if(['key'].includes(attrs.className)) {
@@ -206,7 +205,6 @@ export default () => {
       }
 
       if(['link'].includes(attrs.className)) {
-        console.info('link', root.id, attrs.xlinkHref)
         attrs.onClick = () => {
           const dest = attrs.xlinkHref
           if(dest.startsWith('#')) {
@@ -215,6 +213,20 @@ export default () => {
             setFiles(fs => [dest, ...fs])
           }
         }
+      }
+
+      if(['toggle'].includes(attrs.className)) {
+        const handler = () => {
+          attrs.ref.current.classList.toggle('on')
+          for(let space of spaces.current) {
+            const visible = space.current.style.opacity !== '0'
+            TweenMax.to(
+              space.current, 0.5, { display: visible ? 'none' : 'inline', opacity: visible ? 0 : 1, ease: Power3.easeInOut }
+            )
+          }
+        }
+        window.addEventListener('keypress', (evt) => { if(evt.key === 's') handler() })
+        attrs.onClick = handler
       }
 
       if(root.nodeName === 'svg') {

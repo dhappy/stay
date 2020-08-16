@@ -218,6 +218,7 @@ export default () => {
             setTooltip('')
           } else {
             setTooltip(node.attributes['inkscape:label'].nodeValue)
+            setTimeout(() => setTooltip(), 5000)
           }
         }
       }
@@ -268,8 +269,8 @@ export default () => {
 
   return (
     <div className='App' style={{height: '100vh'}}>
-      {tooltip && <h1>{tooltip}</h1>}
       {SVG}
+      {tooltip && <h1>{tooltip}</h1>}
       {files.length > 1 && <a id='back' onClick={back}>❌</a>}
     </div>
   )

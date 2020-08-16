@@ -84,4 +84,10 @@ svg {
 h1 {
   text-align: center;
   margin: 0;
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: rgba(247, 226, 226, 0.822);
+  padding: 0.5em;
 }

@@ -6,10 +6,6 @@
   fill: yellow ! important;
 }
 
-.parent:hover * {
-  fill: rgba(238, 78, 4, 0.733) ! important;
-}
-
 .key .active {
   fill: orange ! important;
 }
@@ -30,8 +26,8 @@
 }
 
 @keyframes keyborder {
-  from { stroke: default; stroke-width: 2%; }
-  to { stroke: rgba(110, 8, 8, 0.5); stroke-width: 3%; }
+  from { stroke: currentColor; }
+  to { stroke: rgba(110, 8, 8, 0.5); }
 }
 
 #back {
@@ -48,38 +44,49 @@
   cursor: cell;
 }
 
-.link, .key, .toggle {
+.link, .key, .toggle, .parent {
   cursor: pointer;
 }
 
 .link * {
-  animation: linkborder 1s infinite;
-  animation-direction: alternate;
+  animation:
+    linkborder 1s ease-in-out 0s infinite alternate both,
+    marching 1.5s linear 0s infinite normal both
+  ;
   transition: fill 0.5s ease-in-out, fill-opacity 0.25s ease-in-out;
   stroke-dasharray: 0.25 0.1 !important;
 }
 
 @keyframes linkborder {
-  from { stroke: currentColor; stroke-width: 0.25%; stroke-dashoffset: 0; }
-  to { stroke: rgba(2, 165, 130, 0.63); stroke-width: 0.4%; stroke-dashoffset: 1; }
+  from { stroke: currentColor; }
+  to { stroke: rgba(1, 63, 49, 0.76); }
 }
 
 @keyframes marching {
   from { stroke-dashoffset: 0; }
-  to { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0.35; }
 }
 
 .parent * {
-  animation: parentborder 2.5s infinite both ease-in-out;
+  animation:
+    parentborder 2.5s linear 0s infinite alternate both,
+    marching 0.5s linear 0s infinite normal both
+  ;
 }
 
 @keyframes parentborder {
-  from { stroke: default; }
-  33% { stroke: rgba(0, 0, 0, 0.822); stroke-width: 1%; }
-  70% { stroke: rgba(36, 99, 20, 0.575); stroke-width: 1.5%; }
-  80% { stroke: rgba(158, 10, 10, 0.904); stroke-width: 1.25%; }
-  90% { stroke: rgba(36, 99, 20, 0.575); stroke-width: 1%; }
-  to { stroke: default; }
+  from { stroke: currentColor; }
+  15% { stroke: rgba(223, 11, 187, 0.74); }
+  33% { stroke: rgba(7, 29, 226, 0.795); }
+  50% { stroke: rgba(218, 136, 15, 0.767); }
+  70% { stroke: rgba(36, 99, 20, 0.575); }
+  80% { stroke: rgba(158, 10, 10, 0.904); }
+  90% { stroke: rgba(36, 99, 20, 0.575); }
+  to { stroke: rgba(14, 200, 224, 0.774); }
+}
+
+.parent:hover * {
+  animation: none;
 }
 
 .space {
@@ -97,13 +104,15 @@ svg {
 
 h1 {
   text-align: center;
-  margin: 0;
   position: absolute;
   top: 0%;
   left: 50%;
+  margin-top: 0.25em;
   transform: translate(-50%, 0);
-  background-color: rgba(247, 226, 226, 0.822);
+  background-color: rgba(247, 226, 226, 0.623);
   padding: 0.5em;
+  pointer-events: none;
+  border-radius: 13px;
 }
 
 .toggle circle {
@@ -146,7 +155,7 @@ h1 {
   animation-iteration-count: 1;
 }
 
-.clicked.toggle, .clicked.toggle * {
+.clicked.toggle, .clicked.toggle *, .clicked.link * {
   animation: none;
 }
 
@@ -161,7 +170,7 @@ h1 {
 
 * {
   transition: fill-opacity 0.25s ease;
-  transition: fill 0.05s ease;
+  transition: fill 0.25s ease;
 }
 
 text, .parent:hover text, tspan, .parent:hover tspan {

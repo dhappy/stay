@@ -1,7 +1,6 @@
 import React, { useState, useEffect, createRef, useRef } from 'react'
 import { TweenMax, Power3 } from 'gsap/all'
 import './App.css'
-import { box } from 'tweetnacl'
 
 export default () => {
   const [files, setFiles] = useState(['survey.svg'])
@@ -201,7 +200,7 @@ export default () => {
             svg.current, 0.5,
             {
               attr: { viewBox: newView },
-              ease: Power3.easeInOut,
+              ease: Power3.easeOut,
             }
           )
           TweenMax.to(
@@ -285,6 +284,13 @@ export default () => {
         }
       }
 
+      if(!attrs.onDoubleClick) {
+        attrs.onDoubleClick = (evt) => {
+          evt.preventDefault()
+          console.log(attrs.ref.current)
+        }
+      }
+
       return React.createElement(
         root.nodeName, attrs, children
       )
@@ -308,12 +314,18 @@ export default () => {
 
   useEffect(() => {
     if(doc) {
-      const dom = (new DOMParser()).parseFromString(doc, 'text/xml')
-      keys.current = []
-      spaces.current = []
-      origView.current = dom.documentElement.attributes.viewBox.nodeValue
-      elems.current = {}
-      setSVG(buildTree(dom.documentElement, elems.current))
+      try {
+        const dom = (new DOMParser()).parseFromString(doc, 'text/xml')
+        keys.current = []
+        spaces.current = []
+        origView.current = dom.documentElement.attributes.viewBox.nodeValue
+        elems.current = {}
+        setSVG(buildTree(dom.documentElement, elems.current))
+      } catch(err) {
+        alert(`Error Loading: ${files[0]}`)
+        console.error(err)
+        console.error(doc)
+      }
     }  
   }, [doc]) // eslint-disable-line react-hooks/exhaustive-deps
 

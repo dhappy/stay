@@ -114,16 +114,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.8866125"
-     inkscape:cx="102.44531"
-     inkscape:cy="96.013588"
+     inkscape:zoom="10.080676"
+     inkscape:cx="169.50691"
+     inkscape:cy="42.518113"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer5"
+     inkscape:current-layer="layer115"
      inkscape:document-rotation="0"
      showgrid="false"
-     inkscape:window-width="1648"
-     inkscape:window-height="772"
-     inkscape:window-x="1602"
+     inkscape:window-width="1776"
+     inkscape:window-height="1032"
+     inkscape:window-x="1011"
      inkscape:window-y="185"
      inkscape:window-maximized="0"
      fit-margin-top="0"
@@ -485,22 +485,22 @@
      style="display:inline;opacity:1">
     <g
        xlink:href="property.svg"
-       class="parent"
-       style="display:inline"
-       inkscape:label="The Holcombs' Cabin"
+       inkscape:groupmode="layer"
        id="layer6"
-       inkscape:groupmode="layer">
+       inkscape:label="The Holcombs' Cabin"
+       style="display:inline"
+       class="parent">
       <rect
          style="fill:#099116;fill-opacity:0.051575;stroke:#256220;stroke-width:1.00157;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.00157, 2.00315;stroke-dashoffset:0;stroke-opacity:0.452505"
          id="rect1060"
-         width="70.109833"
-         height="35.009605"
-         x="144.74875"
-         y="-14.645971"
+         width="51.473423"
+         height="39.122349"
+         x="148.65945"
+         y="-21.223682"
          transform="rotate(16.595805)" />
       <g
          id="goat"
-         transform="matrix(0.36188922,0,0,0.36188922,108.50437,16.31623)"
+         transform="matrix(0.43125886,0.13831051,-0.13831051,0.43125886,120.23263,-9.8904224)"
          style="display:inline;opacity:1;filter:url(#filter6064)">
         <g
            id="g3403"

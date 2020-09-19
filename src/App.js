@@ -41,6 +41,25 @@ export default () => {
     svg.current.setAttribute('viewBox', box)
   }
 
+  // dispatched events go to all parents, propagated events go to all children
+  const propogateEvent = (type, ref) => {
+    const evt = new CustomEvent(type, {
+      bubbles: false,
+      detail: { text: () => type }
+    })
+    ref.current.dispatchEvent(evt)
+    eventChildren(evt, ref.current)
+  }
+
+  const eventChildren = (evt, target) => {
+    for(let child of [...target.childNodes]) {
+      if(child.dispatchEvent) {
+        child.dispatchEvent(evt)
+        eventChildren(evt, child)
+      }
+    }
+  }
+  
   const cleanAttributes = (attributes) => {
     const attrs = {}
     for(let attr of attributes) {
@@ -77,23 +96,48 @@ export default () => {
     return attrs
   }
 
-  const zoomedBox = (elem) => {
-    const bbox = elem.getBBox()
+  const svgPoint = (x, y) => {
+    let point = svg.current.createSVGPoint()
+    point.x = x
+    point.y = y
+    return point
+  } 
+
+  const zoomedBox = (elem, opts = {}) => {
+    const { padPercent = 2, serialize = true } = opts
+    let box = elem.getBBox()
+    if(elem.nodeType === 'rect') {
+      box = {
+        x: elem.attributes.x, y: elem.attributes.y,
+        width: elem.attributes.width, height: elem.attributes.height,
+      }
+    }
     const tfm2elm = (
       svg.current.getScreenCTM().inverse().multiply(elem.getScreenCTM())
     )
-    const pad = 2
-    let origin = svg.current.createSVGPoint()
-    origin.x = bbox.x - pad
-    origin.y = bbox.y - pad
-    let dest = svg.current.createSVGPoint()
-    dest.x = origin.x + bbox.width + 2 * pad
-    dest.y = origin.y + bbox.height + 2 * pad
-    origin = origin.matrixTransform(tfm2elm)
-    dest = dest.matrixTransform(tfm2elm)
-    dest.x -= origin.x
-    dest.y -= origin.y
-    return [origin.x, origin.y, dest.x, dest.y].join(' ')
+    const pad = (padPercent / 100) * Math.min(box.width, box.height)
+    const upLeft = svgPoint(box.x - pad, box.y - pad)
+    const lowRight = svgPoint(
+      box.x + box.width + 2 * pad, box.y + box.height + 2 * pad
+    )
+    const tUpLeft = upLeft.matrixTransform(tfm2elm)
+    const tLowRight = lowRight.matrixTransform(tfm2elm)
+    const dest = {
+      x: tUpLeft.x, y: tUpLeft.y,
+      width: tLowRight.x - tUpLeft.x,
+      height: tLowRight.y - tUpLeft.y,
+    }
+    
+    const upRight = svgPoint(lowRight.x, upLeft.y)
+    const tUpRight = upRight.matrixTransform(tfm2elm)
+    const slope = (tUpLeft.y - tUpRight.y) / (tUpLeft.x - tUpRight.x)
+    console.info(tUpLeft, tUpRight, tLowRight, Math.atan(slope))
+
+    if(serialize) {
+      return [dest.x, dest.y, dest.width, dest.height].join(' ')
+    } else {
+      return dest
+    }
   }
 
   const zoomTo = (elem) => {
@@ -133,7 +177,11 @@ export default () => {
           }
 
           TweenMax.to(
-            elem, 0.5, { display: visible ? 'inline' : 'none', opacity: visible ? 1 : 0, ease: Power3.easeInOut }
+            elem, 0.5, {
+              display: visible ? 'inline' : 'none',
+              opacity: visible ? 1 : 0,
+              ease: Power3.easeInOut,
+            }
           )
         }
       }
@@ -152,7 +200,7 @@ export default () => {
     }
   }
 
-  const buildTree = (root, elems = {}, key = { val: 0 }) => {
+  const buildTree = (root, key = { val: 0 }) => {
     if(root.nodeType !== Node.ELEMENT_NODE) {
       console.error('Root Type', root.nodeType)
     } else {
@@ -165,7 +213,7 @@ export default () => {
               sub => sub.nodeType !== Node.TEXT_NODE
             )
           ) {
-            children.push(buildTree(child, elems, key))
+            children.push(buildTree(child, key))
           } else {
             const attrs = cleanAttributes(child.attributes)
             attrs.key = ++key.val
@@ -186,7 +234,7 @@ export default () => {
       attrs.ref = ref
 
       if(attrs.id) {
-        elems[attrs.id] = attrs.ref
+        elems.current[attrs.id] = attrs.ref
       }
 
       if(['space'].includes(attrs.className)) {
@@ -195,23 +243,37 @@ export default () => {
 
       if(['parent'].includes(attrs.className)) {
         attrs.onClick = () => {
-          const newView = zoomedBox(ref.current)
-          TweenMax.to(
-            svg.current, 0.5,
-            {
-              attr: { viewBox: newView },
-              ease: Power3.easeOut,
-            }
-          )
-          TweenMax.to(
-            svg.current, 0.1,
-            {
-              opacity: 0,
-              ease: Power3.easeInOut,
-              delay: 0.4,
-              onComplete: () => setFiles(f => [attrs.xlinkHref, ...f])
-            }
-          )
+          attrs.ref.current.classList.add('selected')
+
+          console.info('RT', attrs.ref.current.childNodes)
+
+          let newView = zoomedBox(ref.current)
+          const card = attrs.ref.current.querySelector('.card')
+          if(card) {
+            newView = zoomedBox(card, { padPercent: 0 })
+            console.info('BX', newView)
+          }
+
+          // TweenMax.to(
+          //   svg.current, 1.75,
+          //   {
+          //     attr: { viewBox: newView },
+          //     ease: Power3.easeOut,
+          //   }
+          // )
+          let txElem = svg.current
+          if(elems.current['root']) {
+            txElem = elems.current['root'].current
+          }
+          // TweenMax.to(
+          //   txElem, 1.5,
+          //   {
+          //     style: { opacity: 0 },
+          //     ease: Power3.easeInOut,
+          //     delay: 0.25,
+          //     //onComplete: () => setFiles(f => [attrs.xlinkHref, ...f]),
+          //   }
+          // )
         }
       }
 
@@ -243,6 +305,42 @@ export default () => {
         }
       }
 
+      let transform
+      if(transform = attrs['selected:transform']) {
+        const prevClick = attrs.onClick
+        attrs.onClick = (evt) => {
+          if(prevClick) prevClick(evt)
+
+          // TweenMax.to(
+          //   attrs.ref.current, 1,
+          //   {
+          //     attr: { transform: transform },
+          //     ease: Power3.easeOut,
+          //   }
+          // )
+        }
+      }
+
+      let rootTransform
+      if(rootTransform = attrs['selected:transform-root']) {
+        const prevClick = attrs.onClick
+        attrs.onClick = (evt) => {
+          if(prevClick) prevClick(evt)
+
+          let txElem = svg.current
+          if(elems.current['root']) {
+            txElem = elems.current['root'].current
+          }
+          TweenMax.to(
+            txElem, 10.75,
+            {
+              attr: { transform: rootTransform },
+              ease: Power3.easeOut,
+            }
+          )
+        }
+      }
+
       if(['toggle'].includes(attrs.className)) {
         const handler = () => {
           attrs.ref.current.classList.toggle('on')
@@ -264,36 +362,32 @@ export default () => {
         attrs.onClick = handler
       }
 
-      if(!attrs.onClick) {
-        attrs.onClick = (evt) => {
-          let node = evt.target
-          while(node.parentNode && !node.attributes['inkscape:label']) {
-            node = node.parentNode
+      const prevClick = attrs.onClick
+      attrs.onClick = (evt) => {
+        if(prevClick) prevClick(evt)
+
+        let node = evt.target
+        while(node.parentNode && !node.attributes['inkscape:label']) {
+          node = node.parentNode
+        }
+        if(!node || !node.attributes) {
+          setTooltip('')
+        } else {
+          node.classList.add('clicked')
+          setTimeout(() => node.classList.remove('clicked'), 1000)
+          setTooltip(node.attributes['inkscape:label'].nodeValue)
+          if(tipTimeout.current) {
+            clearTimeout(tipTimeout.current)
           }
-          if(!node || !node.attributes) {
-            setTooltip('')
-          } else {
-            node.classList.add('clicked')
-            setTimeout(() => node.classList.remove('clicked'), 1000)
-            setTooltip(node.attributes['inkscape:label'].nodeValue)
-            if(tipTimeout.current) {
-              clearTimeout(tipTimeout.current)
-            }
-            tipTimeout.current = setTimeout(() => setTooltip(), 5000)
-          }
+          tipTimeout.current = setTimeout(() => setTooltip(), 5000)
         }
       }
 
-      if(!attrs.onDoubleClick) {
-        attrs.onDoubleClick = (evt) => {
-          evt.preventDefault()
-          console.log(attrs.ref.current)
-        }
-      }
-
-      return React.createElement(
+      const elem = React.createElement(
         root.nodeName, attrs, children
       )
+
+      return elem
     }
   }
 
@@ -320,7 +414,7 @@ export default () => {
         spaces.current = []
         origView.current = dom.documentElement.attributes.viewBox.nodeValue
         elems.current = {}
-        setSVG(buildTree(dom.documentElement, elems.current))
+        setSVG(buildTree(dom.documentElement))
       } catch(err) {
         alert(`Error Loading: ${files[0]}`)
         console.error(err)
@@ -387,7 +481,7 @@ export default () => {
 
 
   return (
-    <div className='App' style={{height: '100vh'}}>
+    <div id='App'>
       {SVG}
       {tooltip && <h1>{tooltip}</h1>}
       {files.length > 1 &&

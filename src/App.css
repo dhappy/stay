@@ -1,3 +1,12 @@
+#App {
+  width: 100vw !important;
+  height: 100vh !important;  
+}
+
+svg {
+  max-width: 100%;
+}
+
 .space > *, .parent * {
   transition: fill 1s ease;
 }
@@ -164,8 +173,9 @@ h1 {
   70% { stroke: red; stroke-opacity: 0.75; }
 }
 
-#survey g g g:hover * {
+#survey g['inkscape:label']:hover * {
   fill-opacity: 1 !important;
+  transition: fill-opacity 0.25s ease !important;
 }
 
 * {

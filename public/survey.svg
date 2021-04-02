@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
+   xmlns:selected="https://dhappy.org/2020/anim/selected"
    xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -15,9 +16,8 @@
    version="1.1"
    id="survey"
    sodipodi:docname="survey.svg"
-   inkscape:version="1.0 (b51213c273, 2020-08-10)"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
    transform="rotate(0, 200, 50)"
-   xmlns:selected="https://dhappy.org/2020/anim/selected"
    overflow="visible"
    style="opacity: 1;">
   <defs
@@ -118,11 +118,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="13.465937"
-     inkscape:cx="198.40291"
-     inkscape:cy="57.24289"
+     inkscape:zoom="3.1798639"
+     inkscape:cx="138.57134"
+     inkscape:cy="122.29716"
      inkscape:document-units="mm"
-     inkscape:current-layer="root"
+     inkscape:current-layer="survey"
      inkscape:document-rotation="0"
      showgrid="false"
      inkscape:window-width="1598"
@@ -179,25 +179,9 @@
          inkscape:label="Plots">
         <g
            inkscape:groupmode="layer"
-           id="layer114"
-           inkscape:label="Inaccessible?">
-          <g
-             id="g2240"
-             style="display:inline;fill:#a16a44;fill-opacity:0.338439"
-             transform="translate(-3.32321,-9.0924688)">
-            <path
-               style="fill:#a16a44;fill-opacity:0.338439;stroke:#1e3b07;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.847374"
-               d="m 55.818841,117.99064 12.990631,14.49267 -26.217959,45.71338 -3.471828,-6.12914 3.041819,-5.61181 -0.0044,-26.52239 z"
-               id="path1976" />
-            <g
-               id="g2217"
-               style="fill:#a16a44;fill-opacity:0.338439" />
-          </g>
-        </g>
-        <g
-           inkscape:groupmode="layer"
            id="layer115"
-           inkscape:label="666 Riddle Creek Road">
+           inkscape:label="659 Riddle Creek Road"
+           style="display:inline">
           <path
              style="display:inline;fill:#610152;fill-opacity:0.278777;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
              d="m 139.373,23.125306 1.52581,2.565453 7.45157,3.757644 10.53602,0.663279 15.98754,11.28972 35.25622,-0.95768 19.42479,21.801756 h 10.7669 l 3e-5,-57.5391916 h -99.05462 z"
@@ -219,7 +203,8 @@
         <g
            inkscape:groupmode="layer"
            id="layer113"
-           inkscape:label="664 Riddle Creek Road">
+           inkscape:label="Riddle Creek Road"
+           style="display:inline">
           <path
              style="display:inline;fill:#e8ff34;fill-opacity:0.420637;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
              d="m 72.729249,194.05782 1.517751,-1.49973 3.184504,-1.96716 18.262197,-22.91532 10.203379,-8.12112 12.19416,-10.49488 4.16112,-4.8619 10.97443,-8.11219 5.0283,-4.93368 11.18917,-7.30164 16.23709,-14.37147 5.89181,-7.81172 17.45176,3.58844 21.70985,-22.90629 29.62738,22.85657 -33.60795,33.01568 -16.96095,-3.6835 -61.42577,58.10199 -28.4479,26.88835 z"
@@ -239,7 +224,7 @@
         <g
            inkscape:groupmode="layer"
            id="layer103"
-           inkscape:label="661 Riddle Creek Road"
+           inkscape:label="Riddle Creek Road"
            style="display:inline">
           <path
              style="display:inline;fill:#a16944;fill-opacity:0.172481;stroke:#1e3b07;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.847374"
@@ -255,7 +240,7 @@
         <g
            inkscape:groupmode="layer"
            id="layer104"
-           inkscape:label="659 Riddle Creek Road"
+           inkscape:label="Riddle Creek Road"
            style="display:inline">
           <path
              style="display:inline;fill:#a14468;fill-opacity:0.172481;stroke:#1e3b07;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.847374"
@@ -271,7 +256,7 @@
         <g
            inkscape:groupmode="layer"
            id="layer105"
-           inkscape:label="657 Riddle Creek Road"
+           inkscape:label="605 Riddle Creek Road"
            style="display:inline">
           <path
              style="display:inline;fill:#a1a044;fill-opacity:0.172481;stroke:#1e3b07;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.847374"
@@ -288,7 +273,7 @@
         <g
            inkscape:groupmode="layer"
            id="layer106"
-           inkscape:label="655 Riddle Creek Road"
+           inkscape:label="Riddle Creek Road"
            style="display:inline">
           <path
              style="display:inline;fill:#6e44a1;fill-opacity:0.172481;stroke:#1e3b07;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.847374"
@@ -305,7 +290,7 @@
         <g
            inkscape:groupmode="layer"
            id="layer107"
-           inkscape:label="621 Riddle Creek Road"
+           inkscape:label="641 Riddle Creek Road"
            style="display:inline">
           <path
              style="display:inline;fill:#a14444;fill-opacity:0.172481;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -323,7 +308,7 @@
         <g
            inkscape:groupmode="layer"
            id="layer108"
-           inkscape:label="651 Riddle Creek Road"
+           inkscape:label="Riddle Creek Road"
            style="display:inline">
           <path
              style="display:inline;fill:#44a197;fill-opacity:0.172481;stroke:#1e3b07;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.847374"
@@ -341,19 +326,25 @@
         <g
            inkscape:groupmode="layer"
            id="layer109"
-           inkscape:label="599 Riddle Creek Road"
+           inkscape:label="597 Riddle Creek Road"
            style="display:inline">
-          <path
-             style="display:inline;fill:#6ab95b;fill-opacity:0.331639;stroke:#1e3b07;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.847374"
-             d="m 85.698382,180.00982 -7.659759,-18.82677 -18.074949,-13.62985 -17.372161,30.64349 22.81347,28.70754 10.330593,-10.56283 0.614963,-3.24685 z"
-             id="path1393"
-             transform="translate(-3.32321,-9.0924688)" />
           <path
              style="display:inline;fill:#6ab95b;fill-opacity:0.331639;stroke:#1e3b07;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.847374"
              d="m 177.38656,102.09053 -1.12655,3.95483 19.74063,4.58817 3.318,-3.60513 z"
              id="path1995"
              sodipodi:nodetypes="ccccc"
              transform="translate(-3.32321,-9.0924688)" />
+          <g
+             aria-label="597"
+             id="text2318-3-7"
+             style="opacity:1;display:inline;font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583">
+            <path
+               id="path39647"
+               style="text-align:center;text-anchor:middle;fill:#596135;fill-opacity:0.556693;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+               d="m 96.898438,193.48633 10.330082,-10.5625 0.61523,-3.2461 9.34766,-13.08398 -7.66016,-18.82813 -18.074803,-13.62943 8.846283,-15.06978 -12.99023,-14.49219 -13.662109,21.9414 0.0039,26.52344 -3.041016,5.61133 3.357608,5.95859 z"
+               transform="translate(-34.815983,4.3245382)"
+               sodipodi:nodetypes="ccccccccccccc" />
+          </g>
         </g>
         <g
            inkscape:groupmode="layer"
@@ -464,17 +455,6 @@
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-         x="61.611179"
-         y="170.08542"
-         id="text2318-3-7"><tspan
-           sodipodi:role="line"
-           id="tspan2316-6-5"
-           x="61.611179"
-           y="170.08542"
-           style="text-align:center;text-anchor:middle;stroke-width:0.264583">599</tspan></text>
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
          x="115.91367"
          y="80.593498"
          id="text2318-3-3"><tspan
@@ -482,7 +462,42 @@
            id="tspan2316-6-56"
            x="115.91367"
            y="80.593498"
-           style="text-align:center;text-anchor:middle;stroke-width:0.264583">621</tspan></text>
+           style="text-align:center;text-anchor:middle;stroke-width:0.264583">641</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:9.03448px;line-height:1.25;font-family:sans-serif;display:inline;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.225862"
+         x="120.82307"
+         y="127.73111"
+         id="text2318-3-2"><tspan
+           sodipodi:role="line"
+           id="tspan2316-6-7"
+           x="120.82307"
+           y="127.73111"
+           style="text-align:center;text-anchor:middle;stroke-width:0.225862">605</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;display:inline;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         x="58.599648"
+         y="167.53334"
+         id="text2318-3-0"><tspan
+           sodipodi:role="line"
+           id="tspan2316-6-9"
+           x="58.599648"
+           y="167.53334"
+           style="text-align:center;text-anchor:middle;stroke-width:0.264583">597</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:9.14822px;line-height:1.25;font-family:sans-serif;display:inline;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.228706"
+         x="43.838272"
+         y="192.94438"
+         id="text2318-3-36"
+         inkscape:transform-center-x="1.5494186"
+         inkscape:transform-center-y="-0.76400522"><tspan
+           sodipodi:role="line"
+           id="tspan2316-6-0"
+           x="43.838272"
+           y="192.94438"
+           style="text-align:center;text-anchor:middle;stroke-width:0.228706">589</tspan></text>
     </g>
     <g
        inkscape:groupmode="layer"
@@ -491,12 +506,12 @@
        style="display:inline;opacity:1">
       <g
          xlink:href="property.svg"
-         selected:transform-root="rotate(167, 200, 50)"
-         inkscape:groupmode="layer"
-         id="holcombs"
-         inkscape:label="The Holcombs' Cabin"
+         class="parent"
          style="display:inline"
-         class="parent">
+         inkscape:label="The Holcombs' Cabin"
+         id="holcombs"
+         inkscape:groupmode="layer"
+         selected:transform-root="rotate(167, 200, 50)">
         <g
            id="g1592">
           <rect

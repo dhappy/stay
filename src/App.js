@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createRef, useRef } from 'react'
-import { TweenMax, Power3 } from 'gsap/all'
+import { TimelineLite, TweenMax, Power3 } from 'gsap/all'
 import './App.css'
 
 export default () => {
@@ -96,30 +96,12 @@ export default () => {
     return attrs
   }
 
-  const svgPoint = (x, y) => {
-    let point = svg.current.createSVGPoint()
-    point.x = x
-    point.y = y
-    return point
-  } 
-
-  const zoomedBox = (elem, opts = {}) => {
-    const { padPercent = 2, serialize = true } = opts
-    let box = elem.getBBox()
-    if(elem.nodeType === 'rect') {
-      box = {
-        x: elem.attributes.x, y: elem.attributes.y,
-        width: elem.attributes.width, height: elem.attributes.height,
-      }
-    }
+  const screenToSVG = (box) => {
     const tfm2elm = (
-      svg.current.getScreenCTM().inverse().multiply(elem.getScreenCTM())
+      svg.current.getScreenCTM().inverse()
     )
-    const pad = (padPercent / 100) * Math.min(box.width, box.height)
-    const upLeft = svgPoint(box.x - pad, box.y - pad)
-    const lowRight = svgPoint(
-      box.x + box.width + 2 * pad, box.y + box.height + 2 * pad
-    )
+    const upLeft = svgPoint(box.x, box.y)
+    const lowRight = svgPoint(box.x + box.width, box.y + box.height)
     const tUpLeft = upLeft.matrixTransform(tfm2elm)
     const tLowRight = lowRight.matrixTransform(tfm2elm)
     const dest = {
@@ -127,28 +109,48 @@ export default () => {
       width: tLowRight.x - tUpLeft.x,
       height: tLowRight.y - tUpLeft.y,
     }
-    
-    const upRight = svgPoint(lowRight.x, upLeft.y)
-    const tUpRight = upRight.matrixTransform(tfm2elm)
-    const slope = (tUpLeft.y - tUpRight.y) / (tUpLeft.x - tUpRight.x)
-    console.info(tUpLeft, tUpRight, tLowRight, Math.atan(slope))
-
-    if(serialize) {
-      return [dest.x, dest.y, dest.width, dest.height].join(' ')
-    } else {
-      return dest
-    }
+    return dest  
   }
 
   const zoomTo = (elem) => {
-    let newView = zoomedBox(elem)
-    if(newView === svg.current.attributes.viewBox.nodeValue) {
-      newView = origView.current
-    }
-    TweenMax.to(
-      svg.current, 1, { attr: { viewBox: newView }, ease: Power3.easeInOut }
-    )
+
   }
+
+  // https://stackoverflow.com/a/16372587/264008
+  const deltaTransformPoint = (matrix, point) => {
+    var dx = point.x * matrix.a + point.y * matrix.c + 0;
+    var dy = point.x * matrix.b + point.y * matrix.d + 0;
+    return { x: dx, y: dy };
+  }
+  const decomposeMatrix = (matrix) => {
+    // @see https://gist.github.com/2052247
+
+    // calculate delta transform point
+    const px = deltaTransformPoint(matrix, { x: 0, y: 1 });
+    const py = deltaTransformPoint(matrix, { x: 1, y: 0 });
+
+    // calculate skew
+    const skewX = ((180 / Math.PI) * Math.atan2(px.y, px.x) - 90);
+    const skewY = ((180 / Math.PI) * Math.atan2(py.y, py.x));
+
+    return {
+      translateX: matrix.e,
+      translateY: matrix.f,
+      scaleX: Math.sqrt(matrix.a * matrix.a + matrix.b * matrix.b),
+      scaleY: Math.sqrt(matrix.c * matrix.c + matrix.d * matrix.d),
+      skewX: skewX,
+      skewY: skewY,
+      rotation: skewX // rotation is the same as skew x
+    }
+  }
+
+
+  const svgPoint = (x, y) => {
+    let point = svg.current.createSVGPoint()
+    point.x = x
+    point.y = y
+    return point
+  } 
 
   const setKeyTo = (to) => {
     to = to.replace(/^#/, '')
@@ -247,38 +249,62 @@ export default () => {
 
           console.info('RT', attrs.ref.current.childNodes)
 
-          let newView = zoomedBox(ref.current)
+          var tl = new TimelineLite()
           const card = attrs.ref.current.querySelector('.card')
+
           if(card) {
-            newView = zoomedBox(card, { padPercent: 0 })
-            console.info('BX', newView)
+            let box = card.getBoundingClientRect()
+            box = screenToSVG(box)
+
+            tl.to(
+              svg.current, {
+                duration: 1,
+                opacity: 1,
+                attr: { viewBox: [box.x, box.y, box.width, box.height].join(' ') },
+              }
+            )
+            const tx = decomposeMatrix(card.getScreenCTM())
+            const angle = tx.rotation
+            tl.to(
+              svg.current, {
+                duration: 1,
+                opacity: 1,
+                rotation: -angle,
+                transformOrigin: `${box.x + box.width} ${box.y + box.height}`
+              },
+            )
+  
+            for(let child of [...card.parentNode.childNodes]) {
+              if(child !== card) {
+                const tx = decomposeMatrix(child.getScreenCTM())
+                const angle = tx.rotation
+                console.info('ϴ', child, angle)
+                tl.to(
+                  child, {
+                    duration: 2,
+                    rotation: -11.5 * angle,
+                    transformOrigin: `${box.x - 4 * box.width / 2} ${box.y + box.height / 2}`
+                  },
+                  '<'
+                )
+              }
+            }
           }
 
-          // TweenMax.to(
-          //   svg.current, 1.75,
-          //   {
-          //     attr: { viewBox: newView },
-          //     ease: Power3.easeOut,
-          //   }
-          // )
-          let txElem = svg.current
-          if(elems.current['root']) {
-            txElem = elems.current['root'].current
-          }
-          // TweenMax.to(
-          //   txElem, 1.5,
-          //   {
-          //     style: { opacity: 0 },
-          //     ease: Power3.easeInOut,
-          //     delay: 0.25,
-          //     //onComplete: () => setFiles(f => [attrs.xlinkHref, ...f]),
-          //   }
-          // )
+          tl.to(
+            svg.current,
+            {
+              duration: 1.5,
+              style: { opacity: 0 },
+              ease: Power3.easeInOut,
+              onComplete: () => setFiles(f => [attrs.xlinkHref, ...f]),
+            }
+          )
         }
       }
 
       if(attrs.style && attrs.style.display === 'none') {
-        attrs.style.opacity = 0
+        //attrs.style.opacity = 0
       }
 
       if(attrs['inkscape:label']) {
@@ -305,8 +331,8 @@ export default () => {
         }
       }
 
-      let transform
-      if(transform = attrs['selected:transform']) {
+      let transform = attrs['selected:transform']
+      if(transform) {
         const prevClick = attrs.onClick
         attrs.onClick = (evt) => {
           if(prevClick) prevClick(evt)
@@ -318,26 +344,6 @@ export default () => {
           //     ease: Power3.easeOut,
           //   }
           // )
-        }
-      }
-
-      let rootTransform
-      if(rootTransform = attrs['selected:transform-root']) {
-        const prevClick = attrs.onClick
-        attrs.onClick = (evt) => {
-          if(prevClick) prevClick(evt)
-
-          let txElem = svg.current
-          if(elems.current['root']) {
-            txElem = elems.current['root'].current
-          }
-          TweenMax.to(
-            txElem, 10.75,
-            {
-              attr: { transform: rootTransform },
-              ease: Power3.easeOut,
-            }
-          )
         }
       }
 

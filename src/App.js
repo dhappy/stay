@@ -3,7 +3,10 @@ import { TimelineLite, TweenMax, Power3 } from 'gsap/all'
 import './App.css'
 
 export default () => {
-  const [files, setFiles] = useState(['survey.svg'])
+  const query = new URLSearchParams(window.location.search)
+  const [files, setFiles] = useState([
+    query.get('file') ?? 'stay/survey.svg'
+  ])
   const [doc, setDoc] = useState()
   const origView = useRef(null)
   const [SVG, setSVG] = useState()
@@ -418,7 +421,7 @@ export default () => {
         const dom = (new DOMParser()).parseFromString(doc, 'text/xml')
         keys.current = []
         spaces.current = []
-        origView.current = dom.documentElement.attributes.viewBox.nodeValue
+        origView.current = dom.documentElement.attributes.viewBox?.nodeValue
         elems.current = {}
         setSVG(buildTree(dom.documentElement))
       } catch(err) {

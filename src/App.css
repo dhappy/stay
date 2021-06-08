@@ -173,7 +173,8 @@ h1 {
   70% { stroke: red; stroke-opacity: 0.75; }
 }
 
-#survey g['inkscape:label']:hover * {
+/* #survey g['inkscape:label']:hover * { */
+#survey g[label]:hover * {
   fill-opacity: 1 !important;
   transition: fill-opacity 0.25s ease !important;
 }
